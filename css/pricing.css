@@ -1,0 +1,280 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* ------------------
+	Pricing Banner 
+---------------------- */
+.sub-menu-section-pricing {
+    background-image: url(../img/Pricing-banner.png);
+    height: 320px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.sub-menu-section-pricing:before {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: linear-gradient(90deg, rgb(13 24 32 / 54%) 43%, rgba(13, 24, 32, 0.288879) 95%);
+}
+
+.sub-menu-section-pricing {
+    position: relative;
+    color: #fff;
+    text-align: center;
+}
+
+.inner-content-item>h4 {
+    font-size: 28px;
+    font-weight: 600;
+    color: #1f2020;
+    font-family: 'Rubik';
+}
+
+/* --------------------
+	Pricing Card 
+------------------------- */
+.table .price-section {
+    display: flex;
+    justify-content: center;
+}
+
+.table .price-area {
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+    padding: 2px;
+}
+
+.price-area .inner-area {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    color: #fff;
+    line-height: 110px;
+    text-align: center;
+    position: relative;
+}
+
+.price-area .inner-area .text {
+    font-size: 26px;
+    font-weight: 400;
+    position: absolute;
+    top: -10px;
+    left: 7px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.price-area .inner-area .price {
+    font-size: 28px;
+    font-weight: bold;
+    margin-left: 14px;
+    line-height: 1;
+    font-family: 'Poppins', sans-serif;
+}
+
+.table .package-name {
+    width: 100%;
+    height: 2px;
+    margin: 35px 0;
+    position: relative;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 700;
+    color: #181717;
+}
+
+.table .package-name::before {
+    position: absolute;
+    content: attr(data-text);
+    left: 50%;
+    top: 50%;
+    background: #fff;
+    font-size: 25px;
+    font-weight: 500px;
+    padding: 0 15px;
+    transform: translate(-50%, -50%);
+}
+
+.table .features li {
+    margin-bottom: 15px;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 15px;
+}
+
+.features li .list-name {
+    letter-spacing: 0.4px;
+    color: #605d5d;
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.features li .icon {
+    font-size: 15px;
+}
+
+.features li .icon.check {
+    color: #2db94c;
+}
+
+.features li .icon.cross {
+    color: #cd3241;
+}
+
+.table .btn {
+    display: flex;
+    justify-content: center;
+    margin-top: 35px;
+}
+
+.table .btn button {
+    width: 80%;
+    height: 50px;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 500;
+    border: none;
+    outline: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.table .btn button:hover {
+    border-radius: 5px;
+}
+
+.basic .price-area, .basic .inner-area, .basic .btn button {
+    background: #005c97;
+}
+
+.basic .package-name {
+    background: #0006ff5e;
+}
+
+.basic .btn button {
+    background: #fff;
+    color: #005c97;
+    border: 2px solid #005c97;
+}
+
+.basic .btn button:hover {
+    color: #fff;
+    background: #005c97;
+    outline: 0;
+}
+
+.premium .price-area, .premium .inner-area, .premium .btn button {
+    background: #f34526;
+}
+
+.premium .package-name {
+    background: #ff5d1d85;
+}
+
+.ultimate .price-area, .ultimate .inner-area, .ultimate .btn button {
+    background: #005c97;
+}
+
+.ultimate .package-name {
+    background: #0006ff5e;
+}
+
+.ultimate .btn button {
+    background: #fff;
+    color: #005c97;
+    border: 2px solid #005c97;
+}
+
+.ultimate .btn button:hover {
+	color: #fff;
+    background: #005c97;
+    outline: 0;
+}
+
+.table .ribbon {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    overflow: hidden;
+}
+
+.table .ribbon::before, .table .ribbon::after {
+    position: absolute;
+    content: "";
+    z-index: -1;
+    display: block;
+    border: 7px solid #b7240a;
+    border-top-color: transparent;
+    border-left-color: transparent;
+}
+
+.table .ribbon::before {
+    top: 0px;
+    right: 15px;
+}
+
+.table .ribbon::after {
+    bottom: 15px;
+    left: 0px;
+}
+
+.table .ribbon span {
+    position: absolute;
+    top: 30px;
+    right: 0;
+    transform: rotate(-45deg);
+    width: 200px;
+    background: #f34526;
+    padding: 10px 0;
+    color: #fff;
+    text-align: center;
+    font-size: 17px;
+    text-transform: uppercase;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.12);
+    font-weight: 600;
+    letter-spacing: 0.4px;
+}
+
+.table {
+    position: relative;
+}
+
+.table {
+    box-shadow: 0 5px 10px rgb(0 0 0 / 23%);
+    padding: 20px 10px;
+    width: 94% !important;
+    margin: auto !important;
+    border-radius: 0px;
+}
+
+.table {
+    background: #fff;
+}
+
+/* ------------------------
+	Prcing Media Query 
+-------------------------- */
+@media only screen and (max-width: 991px) and (min-width: 300px) {
+    .table {
+        margin-bottom: 25px !important;
+        width: 100% !important;
+    }
+	
+	.table>:not(caption)>*>* {
+		padding: 5px 0px !important;
+	}
+}
