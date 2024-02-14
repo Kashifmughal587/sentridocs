@@ -1,5 +1,6 @@
 <?php
 require('../assets/db/db_connection.php');
+require_once ('functions.php');
 
 session_start();
 
@@ -24,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_entry'])) {
     }
 }
 
-$conn->close();
+// $conn->close();
 ?>
 
 <?php include 'header.php'; ?>
@@ -46,12 +47,13 @@ $conn->close();
             <?php
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
+                    $request_by = getUsername($conn, $row['user_id']);
                     echo "<tr>
                             <td>{$row['id']}</td>
                             <td>{$row['company_name']}</td>
                             <td>{$row['company_nmls']}</td>
                             <td>{$row['company_email']}</td>
-                            <td>{$row['user_id']}</td>
+                            <td>$request_by</td>
                             <td>
                                 <a href='view_entry.php?id={$row['id']}' class='btn btn-info'>View</a>
                                 <form method='post' style='display:inline;'>

@@ -19,9 +19,7 @@ $smtpSecure = 'tls';
 $smtpPort = 2525;
 
 function log_activity($user_id, $activity_type, $activity_description, $ip_address, $device_info) {
-    global $servername, $username, $password, $dbname;
-
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    global $conn;
 
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
@@ -33,6 +31,4 @@ function log_activity($user_id, $activity_type, $activity_description, $ip_addre
     $stmt->execute();
 
     $stmt->close();
-
-    $conn->close();
 }

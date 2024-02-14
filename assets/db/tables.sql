@@ -91,3 +91,9 @@ $ip_address = $_SERVER['REMOTE_ADDR']; // Capture the user's IP address
 $device_info = $_SERVER['HTTP_USER_AGENT']; // Capture the user's device information
 
 log_activity($user_id, $activity_type, $activity_description, $ip_address, $device_info);
+
+INSERT INTO `users` (`id`, `username`, `firstname`, `lastname`, `email`, `password`, `contact`, `status`, `nmls_number`, `created_at`) 
+VALUES (NULL, 'johndoe', 'John', 'Doe', 'johndoe@gmail.com', '$2y$10$bzrAF8tjf1cIUCbWL.b6R.wI2cXhIGfilr7GpUmyr2/ySM8Tj5Z/a', '923001234567', 'active', '1122', current_timestamp());
+
+INSERT INTO `companies` (`user_id`, `user_nmls`, `company_name`, `company_email`, `company_nmls`, `company_description`, `company_address`, `company_contact`, `status`, `created_at`, `updated_at`) 
+VALUES ('1', '1122', 'Sentri Docs', 'sentridocs@gmail.com', '1256', 'Description', 'Sydney, Australia', '923111234567', 'inactive', current_timestamp(), current_timestamp());
