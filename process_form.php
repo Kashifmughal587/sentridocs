@@ -162,7 +162,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo '<script>';
         echo 'alert("Form Submitted Successfully, PDF sent to email!");';
         echo 'window.location.href = "index.php";';
-        echo '</script>';       
+        echo '</script>';
         
     } catch (Exception $e) {
         echo 'Error in sending email: ' . $mail->ErrorInfo;

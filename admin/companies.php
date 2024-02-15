@@ -1,11 +1,11 @@
 <?php
 require('../assets/db/db_connection.php');
-require_once ('functions.php');
+require_once ('../assets/functions.php');
 
 session_start();
 
 if (!isset($_SESSION['admin_id'])) {
-    header('Location: login.php');
+    echo '<script>window.location.href = "login.php";</script>';
     exit();
 }
 
@@ -49,13 +49,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_entry'])) {
                 while ($row = $result->fetch_assoc()) {
                     $request_by = getUsername($conn, $row['user_id']);
                     echo "<tr>
-                            <td>{$row['id']}</td>
+                            <td scope='row'>{$row['id']}</td>
                             <td>{$row['company_name']}</td>
                             <td>{$row['company_nmls']}</td>
                             <td>{$row['company_email']}</td>
                             <td>$request_by</td>
                             <td>
-                                <a href='view_entry.php?id={$row['id']}' class='btn btn-info'>View</a>
+                                <a href='company.php?id={$row['id']}' class='btn btn-info'>View</a>
                                 <form method='post' style='display:inline;'>
                                     <input type='hidden' name='delete_entry' value='{$row['id']}'>
                                     <button class='btn btn-danger' onclick='return confirm(\"Are you sure you want to delete this entry?\")'>Delete</button>
