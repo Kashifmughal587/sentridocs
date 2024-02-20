@@ -11,6 +11,21 @@
     
     include 'header.php';
     include 'sidebar.php';
+
+    $query1 = "SELECT COUNT(*) AS companies_registered FROM companies WHERE status = 'active'";
+    $result1 = $conn->query($query1);
+    $row1 = $result1->fetch_assoc();
+    $companies_registered = $row1['companies_registered'];
+
+    $query2 = "SELECT COUNT(*) AS form_submissions_this_month FROM mortgage_leads WHERE MONTH(lead_date) = MONTH(CURDATE()) AND YEAR(lead_date) = YEAR(CURDATE())";
+    $result2 = $conn->query($query2);
+    $row2 = $result2->fetch_assoc();
+    $form_submissions_this_month = $row2['form_submissions_this_month'];
+
+    $query3 = "SELECT COUNT(*) AS users_registered_this_year FROM users WHERE YEAR(created_at) = YEAR(CURDATE())";
+    $result3 = $conn->query($query3);
+    $row3 = $result3->fetch_assoc();
+    $users_registered_this_year = $row3['users_registered_this_year'];
     ?>
     <main id="main" class="main">
 
@@ -35,7 +50,7 @@
                 <div class="col-xxl-4 col-md-6">
                 <div class="card info-card sales-card">
 
-                    <div class="filter">
+                    <!-- <div class="filter">
                     <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                         <li class="dropdown-header text-start">
@@ -46,18 +61,18 @@
                         <li><a class="dropdown-item" href="#">This Month</a></li>
                         <li><a class="dropdown-item" href="#">This Year</a></li>
                     </ul>
-                    </div>
+                    </div> -->
 
                     <div class="card-body">
-                    <h5 class="card-title">Sales <span>| Today</span></h5>
+                    <h5 class="card-title">Companies <span>| Active</span></h5>
 
                     <div class="d-flex align-items-center">
                         <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                         <i class="bi bi-cart"></i>
                         </div>
                         <div class="ps-3">
-                        <h6>145</h6>
-                        <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                        <h6><?php echo $companies_registered ?></h6>
+                        <!-- <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
 
                         </div>
                     </div>
@@ -70,7 +85,7 @@
                 <div class="col-xxl-4 col-md-6">
                 <div class="card info-card revenue-card">
 
-                    <div class="filter">
+                    <!-- <div class="filter">
                     <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                         <li class="dropdown-header text-start">
@@ -81,18 +96,18 @@
                         <li><a class="dropdown-item" href="#">This Month</a></li>
                         <li><a class="dropdown-item" href="#">This Year</a></li>
                     </ul>
-                    </div>
+                    </div> -->
 
                     <div class="card-body">
-                    <h5 class="card-title">Revenue <span>| This Month</span></h5>
+                    <h5 class="card-title">Mortgage Form <span>| Submissions</span></h5>
 
                     <div class="d-flex align-items-center">
                         <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                         <i class="bi bi-currency-dollar"></i>
                         </div>
                         <div class="ps-3">
-                        <h6>$3,264</h6>
-                        <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                        <h6><?php echo $form_submissions_this_month ?></h6>
+                        <!-- <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
 
                         </div>
                     </div>
@@ -106,7 +121,7 @@
 
                 <div class="card info-card customers-card">
 
-                    <div class="filter">
+                    <!-- <div class="filter">
                     <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                         <li class="dropdown-header text-start">
@@ -117,7 +132,7 @@
                         <li><a class="dropdown-item" href="#">This Month</a></li>
                         <li><a class="dropdown-item" href="#">This Year</a></li>
                     </ul>
-                    </div>
+                    </div> -->
 
                     <div class="card-body">
                     <h5 class="card-title">Customers <span>| This Year</span></h5>
@@ -127,8 +142,8 @@
                         <i class="bi bi-people"></i>
                         </div>
                         <div class="ps-3">
-                        <h6>1244</h6>
-                        <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
+                        <h6><?php echo $users_registered_this_year ?></h6>
+                        <!-- <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span> -->
 
                         </div>
                     </div>

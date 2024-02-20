@@ -1,3 +1,42 @@
+<?php
+
+session_start();
+
+require('../../assets/db/db_connection.php');
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastName'];
+    $email = $_POST['email'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+    $sql = "SELECT * FROM users WHERE username = '$username'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        echo '<script>alert("Username already exists. Please choose a different username.");</script>';
+    } else {
+        $insert_sql = "INSERT INTO users (firstname, lastname, email, username, password) VALUES ('$firstname', '$lastname', '$email', '$username', '$hashed_password')";
+        if ($conn->query($insert_sql) === TRUE) {
+            $_SESSION['user_id'] = $conn->insert_id;
+            $_SESSION['user_username'] = $username;
+            $_SESSION['user_fullname'] = $row['firstname'] . ' ' . $row['lastname'];
+            $_SESSION['user_email'] = $row['email'];
+            header('Location: profile.php');
+            exit();
+        } else {
+            echo '<script>alert("Error: Unable to register user.");</script>';
+        }
+    }
+
+    $conn->close();
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,32 +89,44 @@
                                             <p class="text-center small">Enter your personal details to create account</p>
                                         </div>
 
-                                        <form class="row g-3 needs-validation" novalidate>
+                                        <form method="POST" action="register.php" class="row g-3 needs-validation" onsubmit="return validateForm()">
                                             <div class="col-12">
-                                                <label for="yourName" class="form-label">Your Name</label>
-                                                <input type="text" name="name" class="form-control" id="yourName" required>
-                                                <div class="invalid-feedback">Please, enter your name!</div>
+                                                <label for="firstname" class="form-label">First Name</label>
+                                                <input type="text" name="firstname" class="form-control" id="firstname" required>
+                                                <div class="invalid-feedback" id="firstnameerror" >Please, enter your firstname!</div>
                                             </div>
 
                                             <div class="col-12">
-                                                <label for="yourEmail" class="form-label">Your Email</label>
-                                                <input type="email" name="email" class="form-control" id="yourEmail" required>
-                                                <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                                                <label for="lastname" class="form-label">Last Name</label>
+                                                <input type="text" name="lastName" class="form-control" id="lastname" required>
+                                                <div class="invalid-feedback" id="lastnameerror" >Please, enter your lastname!</div>
                                             </div>
 
                                             <div class="col-12">
-                                                <label for="yourUsername" class="form-label">Username</label>
+                                                <label for="email" class="form-label">Your Email</label>
+                                                <input type="email" name="email" class="form-control" id="email" required>
+                                                <div class="invalid-feedback" id="emailerror">Please enter a valid Email adddress!</div>
+                                            </div>
+
+                                            <div class="col-12">
+                                                <label for="username" class="form-label">Username</label>
                                                 <div class="input-group has-validation">
                                                     <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                                    <input type="text" name="username" class="form-control" id="yourUsername" required>
-                                                    <div class="invalid-feedback">Please choose a username.</div>
+                                                    <input type="text" name="username" class="form-control" id="username" required>
+                                                    <div class="invalid-feedback" id="usernameerror">Please choose a username.</div>
                                                 </div>
                                             </div>
 
                                             <div class="col-12">
-                                                <label for="yourPassword" class="form-label">Password</label>
-                                                <input type="password" name="password" class="form-control" id="yourPassword" required>
-                                                <div class="invalid-feedback">Please enter your password!</div>
+                                                <label for="password" class="form-label">Password</label>
+                                                <input type="password" name="password" class="form-control" id="password" required>
+                                                <div class="invalid-feedback" id="passworderror">Please enter your password!</div>
+                                            </div>
+
+                                            <div class="col-12">
+                                                <label for="confirmpassword" class="form-label">Confirm Password</label>
+                                                <input type="password" name="confirmpassword" class="form-control" id="confirmpassword" required>
+                                                <div class="invalid-feedback" id="confirmpassworderror">Please enter your password!</div>
                                             </div>
 
                                             <div class="col-12">
@@ -119,6 +170,7 @@
 
         <!-- Template Main JS File -->
         <script src="../assets/js/main.js"></script>
+        <script src="../assets/js/custom.js"></script>
 
     </body>
 

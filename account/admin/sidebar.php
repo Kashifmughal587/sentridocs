@@ -10,6 +10,13 @@
         </li><!-- End Dashboard Nav -->
 
         <li class="nav-item">
+            <a class="nav-link" href="form.php">
+            <i class="bi bi-person"></i>
+            <span>Form Entries</span>
+            </a>
+        </li><!-- End Profile Page Nav -->
+
+        <li class="nav-item">
             <a class="nav-link" href="users.php">
             <i class="bi bi-person"></i>
             <span>Users</span>

@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['user_username'] = $username;
             $_SESSION['user_fullname'] = $row['firstname'] . ' ' . $row['lastname'];
             $_SESSION['user_email'] = $row['email'];
-            header('Location: index.php');
+            header('Location: profile.php');
             exit();
         } else {
             echo '<script>alert("Incorrect Password");</script>';

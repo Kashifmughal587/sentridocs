@@ -61,7 +61,7 @@ CREATE TABLE companies (
 );
 
 
-CREATE TABLE licence_keys (
+CREATE TABLE license_keys (
     id INT AUTO_INCREMENT PRIMARY KEY,
     key_code VARCHAR(50) NOT NULL,
     user_id INT NOT NULL,

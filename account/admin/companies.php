@@ -21,13 +21,6 @@
         $stmt->execute();
         $result = $stmt->get_result();
 
-        // if( $result->num_rows > 0) {
-        //     $row = $result->fetch_assoc();
-        // } else {
-        // }
-
-        // die();
-
     }else{
         $sql = "SELECT * FROM companies";
         $result = $conn->query($sql);
@@ -43,7 +36,6 @@
             $conn->query($delete_sql);
 
             echo '<script>window.location.href = "companies.php";</script>';
-            // header('Location: ' . $_SERVER['PHP_SELF']);
             exit();
         }
     }
@@ -72,7 +64,7 @@
             <h1>Companies</h1>
             <nav>
                 <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="index.php">Home</a></li>
                 <li class="breadcrumb-item active">Companies</li>
                 </ol>
             </nav>

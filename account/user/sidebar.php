@@ -3,23 +3,24 @@
 
     <ul class="sidebar-nav" id="sidebar-nav">
         <li class="nav-item">
-            <a class="nav-link " href="index.php">
+            <a class="nav-link " href="profile.php">
                 <i class="bi bi-grid"></i>
-                <span>Dashboard</span>
+                <span>Profile</span>
             </a>
         </li><!-- End Dashboard Nav -->
 
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a class="nav-link" href="users.php">
             <i class="bi bi-person"></i>
             <span>Users</span>
             </a>
-        </li><!-- End Profile Page Nav -->
+        </li> -->
+        <!-- End Profile Page Nav -->
 
         <li class="nav-item">
-            <a class="nav-link" href="companies.php">
-            <i class="bi bi-question-circle"></i>
-            <span>Companies</span>
+            <a class="nav-link" href="company.php">
+                <i class="bi bi-menu-button-wide"></i>
+                <span>Company</span>
             </a>
         </li><!-- End F.A.Q Page Nav -->
     </ul>

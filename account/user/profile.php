@@ -12,6 +12,66 @@
 
     $user_id = $_SESSION['user_id'];
 
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] == 'changePassword') {
+        $currentPassword = $conn->real_escape_string($_POST['currentPassword']);
+        $newPassword = $conn->real_escape_string($_POST['newPassword']);
+        $renewPassword = $conn->real_escape_string($_POST['renewPassword']);
+    
+        if ($newPassword !== $renewPassword) {
+            echo '<script>alert("New passwords do not match!");</script>';
+        } else {
+            $user_id = $_SESSION['user_id'];
+            $sql = "SELECT password FROM users WHERE id = '$user_id'";
+            $result = $conn->query($sql);
+    
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                $hashedPassword = $row['password'];
+                // $hashedCurrentPassword = password_hash($currentPassword, PASSWORD_DEFAULT);
+                echo '<script>alert("'. $currentPassword .'!");</script>';
+                if (password_verify($currentPassword, $hashedPassword)) {
+                    $hashedNewPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+    
+                    $updateQuery = "UPDATE users SET password = '$hashedNewPassword' WHERE id = '$user_id'";
+                    if ($conn->query($updateQuery) === TRUE) {
+                        echo '<script>alert("Password changed successfully!");</script>';
+                    } else {
+                        echo '<script>alert("Error changing password: ' . $conn->error . '");</script>';
+                    }
+                } else {
+                    echo '<script>alert("Incorrect current password!");</script>';
+                }
+            } else {
+                echo '<script>alert("User not found!");</script>';
+            }
+        }
+    }    
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] == 'update') {
+        if(isset($_POST['firstname'], $_POST['lastname'], $_POST['nmlsNumber'], $_POST['phone'])) {
+            $firstname = $conn->real_escape_string($_POST['firstname']);
+            $lastname = $conn->real_escape_string($_POST['lastname']);
+            $nmlsNumber = $conn->real_escape_string($_POST['nmlsNumber']);
+            $phone = $conn->real_escape_string($_POST['phone']);
+
+            $sql = "SELECT * FROM users WHERE nmls_number = '$nmlsNumber'";
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                echo '<script>alert("This NMLS number is associated with another user. Please check again for your own NMLS Number.");</script>';
+            } else {
+                $sql = "UPDATE users SET firstname='$firstname', lastname='$lastname', nmls_number='$nmlsNumber', contact='$phone' WHERE id='$user_id'";
+                
+                if ($conn->query($sql) === TRUE) {
+                    echo '<script>alert("Profile updated successfully!");</script>';
+                } else {
+                    echo '<script>alert("Error updating profile: ' . $conn->error . '");</script>';
+                }
+            }
+        } else {
+            echo '<script>alert("All fields are required!");</script>';
+        }
+    }
+
     $query = "SELECT * FROM users WHERE id = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $user_id);
@@ -20,9 +80,14 @@
 
     if($result->num_rows > 0) {
         $user_details = $result->fetch_assoc();
+
+        $query = "SELECT COUNT(*) as Total FROM companies WHERE user_id = '$user_id'";
+        $result2 = $conn->query($query);
+        $companyCount = $result2->fetch_assoc();
     }else{
         echo '<script>alert("User not found.")</script>';
     }
+$conn->close();
 ?>
     <main id="main" class="main">
 
@@ -40,14 +105,14 @@
                 <div class="col-xl-4">
                     <div class="card">
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                            <img src="../assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                            <h2><?php echo $user_details['firstname'] . ' ' . $user_details['lastname']?></h2>
+                            <img src="../assets/img/user.png" alt="Profile" class="rounded-circle">
+                            <h2><?php echo $user_details['username']?></h2>
                             <h3><a href="mailto:<?php echo $user_details['email'] ?>"><?php echo $user_details['email']?></a></h3>
                             <div class="social-links mt-2">
-                                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                                <!-- <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
                                 <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
                                 <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a> -->
                             </div>
                         </div>
                     </div>
@@ -78,10 +143,14 @@
                             <div class="tab-content pt-2">
 
                                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                                    <!-- <h5 class="card-title">About</h5>
-                                    <p class="small fst-italic">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</p> -->
 
                                     <h5 class="card-title">Profile Details</h5>
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">NMLS Number</div>
+                                        <div class="col-lg-9 col-md-8">
+                                            <?php echo $user_details['nmls_number'] ?></div>
+                                    </div>
 
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label ">Full Name</div>
@@ -90,22 +159,13 @@
 
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label">Company</div>
-                                        <div class="col-lg-9 col-md-8">Lueilwitz, Wisoky and Leuschke</div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Job</div>
-                                        <div class="col-lg-9 col-md-8">Web Designer</div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Country</div>
-                                        <div class="col-lg-9 col-md-8">USA</div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-4 label">Address</div>
-                                        <div class="col-lg-9 col-md-8">A108 Adam Street, New York, NY 535022</div>
+                                            <?php
+                                                if(isset($companyCount) && $companyCount['Total'] > 0) {
+                                                    echo '';
+                                                }else{
+                                                    echo '<div class="col-lg-9 col-md-8">Not registered yet.</div>';
+                                                }
+                                            ?>
                                     </div>
 
                                     <div class="row">
@@ -123,99 +183,40 @@
                                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
                                     <!-- Profile Edit Form -->
-                                    <form>
+                                    <form action="profile.php" method="POST">
+                                        <input type="hidden" name="action" value="update">
                                         <div class="row mb-3">
-                                            <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
+                                            <label for="nmlsNumber" class="col-md-4 col-lg-3 col-form-label">NMLS Number</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <img src="../assets/img/profile-img.jpg" alt="Profile">
-                                                <div class="pt-2">
-                                                <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
-                                                <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
-                                                </div>
+                                                <input name="nmlsNumber" type="text" class="form-control" id="nmlsNumber" value="<?php echo $user_details['nmls_number'];?>">
                                             </div>
                                         </div>
 
                                         <div class="row mb-3">
-                                            <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
+                                            <label for="firstname" class="col-md-4 col-lg-3 col-form-label">First Name</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input name="fullName" type="text" class="form-control" id="fullName" value="Kevin Anderson">
+                                                <input name="firstname" type="text" class="form-control" id="firstname" value="<?php echo $user_details['firstname'];?>">
                                             </div>
                                         </div>
 
                                         <div class="row mb-3">
-                                            <label for="about" class="col-md-4 col-lg-3 col-form-label">About</label>
+                                            <label for="lastname" class="col-md-4 col-lg-3 col-form-label">Last Name</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <textarea name="about" class="form-control" id="about" style="height: 100px">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</textarea>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-3">
-                                            <label for="company" class="col-md-4 col-lg-3 col-form-label">Company</label>
-                                            <div class="col-md-8 col-lg-9">
-                                                <input name="company" type="text" class="form-control" id="company" value="Lueilwitz, Wisoky and Leuschke">
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-3">
-                                            <label for="Job" class="col-md-4 col-lg-3 col-form-label">Job</label>
-                                            <div class="col-md-8 col-lg-9">
-                                                <input name="job" type="text" class="form-control" id="Job" value="Web Designer">
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-3">
-                                            <label for="Country" class="col-md-4 col-lg-3 col-form-label">Country</label>
-                                            <div class="col-md-8 col-lg-9">
-                                                <input name="country" type="text" class="form-control" id="Country" value="USA">
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-3">
-                                            <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
-                                            <div class="col-md-8 col-lg-9">
-                                                <input name="address" type="text" class="form-control" id="Address" value="A108 Adam Street, New York, NY 535022">
+                                                <input name="lastname" type="text" class="form-control" id="lastname" value="<?php echo $user_details['lastname'];?>">
                                             </div>
                                         </div>
 
                                         <div class="row mb-3">
                                             <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input name="phone" type="text" class="form-control" id="Phone" value="(436) 486-3538 x29071">
+                                                <input name="phone" type="text" class="form-control" id="Phone" value="<?php echo $user_details['contact'];?>">
                                             </div>
                                         </div>
 
                                         <div class="row mb-3">
                                             <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input name="email" type="email" class="form-control" id="Email" value="k.anderson@example.com">
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-3">
-                                            <label for="Twitter" class="col-md-4 col-lg-3 col-form-label">Twitter Profile</label>
-                                            <div class="col-md-8 col-lg-9">
-                                                <input name="twitter" type="text" class="form-control" id="Twitter" value="https://twitter.com/#">
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-3">
-                                            <label for="Facebook" class="col-md-4 col-lg-3 col-form-label">Facebook Profile</label>
-                                            <div class="col-md-8 col-lg-9">
-                                                <input name="facebook" type="text" class="form-control" id="Facebook" value="https://facebook.com/#">
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-3">
-                                            <label for="Instagram" class="col-md-4 col-lg-3 col-form-label">Instagram Profile</label>
-                                            <div class="col-md-8 col-lg-9">
-                                                <input name="instagram" type="text" class="form-control" id="Instagram" value="https://instagram.com/#">
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-3">
-                                            <label for="Linkedin" class="col-md-4 col-lg-3 col-form-label">Linkedin Profile</label>
-                                            <div class="col-md-8 col-lg-9">
-                                                <input name="linkedin" type="text" class="form-control" id="Linkedin" value="https://linkedin.com/#">
+                                                <input name="email" type="email" class="form-control" id="Email" readonly value="<?php echo $user_details['email'];?>">
                                             </div>
                                         </div>
 
@@ -263,40 +264,41 @@
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-primary">Save Changes</button>
                                         </div>
-                                    </form><!-- End settings Form -->
+                                    </form>
 
                                 </div>
 
                                 <div class="tab-pane fade pt-3" id="profile-change-password">
-                                    <!-- Change Password Form -->
-                                    <form>
+                                    <form method="POST" action="profile.php">
+                                        <input type="hidden" name="action" value="changePassword">
+                                        <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
                                         <div class="row mb-3">
                                             <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input name="password" type="password" class="form-control" id="currentPassword">
+                                                <input name="currentPassword" type="password" class="form-control" id="currentPassword">
                                             </div>
                                         </div>
 
                                         <div class="row mb-3">
                                             <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input name="newpassword" type="password" class="form-control" id="newPassword">
+                                                <input name="newPassword" type="password" class="form-control" id="newPassword">
                                             </div>
                                         </div>
 
                                         <div class="row mb-3">
                                             <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input name="renewpassword" type="password" class="form-control" id="renewPassword">
+                                                <input name="renewPassword" type="password" class="form-control" id="renewPassword">
                                             </div>
                                         </div>
 
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-primary">Change Password</button>
                                         </div>
-                                    </form><!-- End Change Password Form -->
+                                    </form>
                                 </div>
-                            </div><!-- End Bordered Tabs -->
+                            </div>
                         </div>
                     </div>
                 </div>
