@@ -43,7 +43,6 @@
     $sql = "SELECT * FROM users";
     $result = $conn->query($sql);
     
-    $conn->close();
 ?>
     <main id="main" class="main">
 
@@ -74,7 +73,7 @@
                                         <th scope="col">Email Address</th>
                                         <th scope="col">NMLS Number</th>
                                         <th scope="col">Contact</th>
-                                        <th scope="col">Companies</th>
+                                        <th scope="col">Company</th>
                                         <th scope="col">Status</th>
                                         <!-- <th>Action</th> -->
                                     </tr>
@@ -83,15 +82,24 @@
                                 <?php
                                     if ($result->num_rows > 0) {
                                         while ($row = $result->fetch_assoc()) {
+                                            $id = $row['id'];
+                                            $sql = "SELECT COUNT(*) as Total FROM companies WHERE user_id = '$id'";
+                                            $result2 = $conn->query($sql);
+                                            $company_count = $result2->fetch_assoc();
+                                            
                                             echo "<tr>
                                                 <td scope='row'>{$row['id']}</td>
                                                 <td>{$row['username']}</td>
                                                 <td>{$row['firstname']} {$row['lastname']}</td>
                                                 <td><a href='mailto:{$row['email']}'>{$row['email']}</a></td>
                                                 <td>{$row['nmls_number']}</td>
-                                                <td>{$row['contact']}</td>
-                                                <td><a href='companies.php?user_id={$row['id']}' class='btn btn-info'>Companies</a></td>
-                                                <td>
+                                                <td>{$row['contact']}</td>";
+                                            if($company_count['Total'] != '0') {
+                                                echo "<td><a href='companies.php?user_id={$row['id']}' class='btn btn-info'>Company</a></td>";
+                                            }else{
+                                                echo "<td></td>";
+                                            }
+                                            echo "<td>
                                                     <form method='post' style='display:inline;'>
                                                         <input type='hidden' name='user_id' value='{$row['id']}'>";
                                                             if ($row['status'] === 'active') {

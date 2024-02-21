@@ -106,38 +106,51 @@
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">Company Description</h5>
-                            <?php echo $company_details["company_description"]; ?>
+                            <?php 
+                                if($company_details["company_description"] != ''){
+                                    echo $company_details["company_description"]; 
+                                }else{
+                                    echo 'No description found.';
+                                }
+                            ?>
                         </div>
-                        <div class="card-body">
-                            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Home</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Profile</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Contact</button>
-                                </li>
-                            </ul>
-                            <div class="tab-content pt-2" id="myTabContent">
-                                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.
+                        <?php
+                            $sql = "SELECT * FROM license_keys WHERE company_id = '$company_id' AND user_id = '$user_id'";
+                            $result3 = $conn->query($sql);
+                            $license_details = $result3->fetch_assoc();
+                            if(isset($license_details["key_code"]) && $license_details['encryption_key']){
+                            ?>
+                                <div class="card-body">
+                                    <h5 class="card-title">Keys</h5>
+                                    <div class="row mb-3">
+                                        <label for="licenseKey" class="col-md-4 col-lg-3 col-form-label">License Key</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            <input name="licenseKey" type="text" class="form-control" id="licenseKey" value="<?php echo $license_details['key_code'];?>" readonly>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="secretKey" class="col-md-4 col-lg-3 col-form-label">Secret Key</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            <input name="secretKey" type="text" class="form-control" id="secretKey" value="<?php echo $license_details['encryption_key'];?>" readonly>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                Nesciunt totam et. Consequuntur magnam aliquid eos nulla dolor iure eos quia. Accusantium distinctio omnis et atque fugiat. Itaque doloremque aliquid sint quasi quia distinctio similique. Voluptate nihil recusandae mollitia dolores. Ut laboriosam voluptatum dicta.
-                                </div>
-                                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                                Saepe animi et soluta ad odit soluta sunt. Nihil quos omnis animi debitis cumque. Accusantium quibusdam perspiciatis qui qui omnis magnam. Officiis accusamus impedit molestias nostrum veniam. Qui amet ipsum iure. Dignissimos fuga tempore dolor.
-                                </div>
-                            </div><!-- End Default Tabs -->
-                        </div>
+                            <?php
+                                }else{
+                                    echo '<div class="card-body">
+                                            <h5 class="card-title">Keys</h5>
+                                            License Key is not generated yet.
+                                        </div>';
+                                }
+                            ?>
+                        
                         <div class="card-footer">
                             <?php
                                 if($company_details['status'] == 'active'){
-                                    echo "<span class='badge bg-success'><i class='bi bi-check-circle me-1'></i>Active</span> / <span class='badge bg-light text-dark'><i class='bi bi-info-circle me-1'></i> In Active</span>";
+                                    echo "<span class='badge bg-success'><i class='bi bi-check-circle me-1'></i>Active</span> / <span class='badge bg-light text-dark'><i class='bi bi-info-circle me-1'></i> <a href='update_status.php?id=".$company_details['id']."&status=Active'>In Active</a></span>";
                                 }else{
-                                    echo "<span class='badge bg-light text-dark'><i class='bi bi-info-circle me-1'></i>Active</span> / <span class='badge bg-success'><i class='bi bi-check-circle me-1'></i>In Active</span>";
+                                    echo "<span class='badge bg-light text-dark'><i class='bi bi-info-circle me-1'></i><a <a href='update_status.php?id=".$company_details['id']."&status=Inactive'>Active</a></span> / <span class='badge bg-success'><i class='bi bi-check-circle me-1'></i>In Active</span>";
                                 }
                             ?>
                         </div>

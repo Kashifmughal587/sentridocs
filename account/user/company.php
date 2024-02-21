@@ -14,6 +14,15 @@
 
     $user_id = $_SESSION['user_id'];
 
+    $sql = "SELECT * FROM users WHERE id = '$user_id'";
+    $result = $conn->query($sql);
+    $row = $result->fetch_assoc();
+
+    if($row['nmls_number'] == '' || $row['contact'] == ''){
+        echo '<script>alert("Please first complete your profile!");</script>';
+        echo '<script>window.location.href = "profile.php";</script>';
+        exit();
+    }
     $sql = "SELECT * FROM companies WHERE user_id = '$user_id'";
     $result = $conn->query($sql);
     $company_details = $result->fetch_assoc();

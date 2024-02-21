@@ -25,10 +25,10 @@ function log_activity($user_id, $activity_type, $activity_description, $ip_addre
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $stmt = $conn->prepare("CALL log_activity(?, ?, ?, ?, ?)");
-    $stmt->bind_param("issss", $user_id, $activity_type, $activity_description, $ip_address, $device_info);
-
-    $stmt->execute();
-
-    $stmt->close();
+    $sql = "INSERT INTO activity_log (user_id, activity_type, activity_description, ip_address, device_info) VALUES ('$user_id', '$activity_type', '$activity_description', '$ip_address', '$device_info')";
+    if ($conn->query($sql) === TRUE) {
+        return true;
+    }else{
+        return false;
+    }
 }

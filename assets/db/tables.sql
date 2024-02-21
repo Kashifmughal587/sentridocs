@@ -39,7 +39,7 @@ CREATE TABLE users (
     email VARCHAR(100) NOT NULL,
     password VARCHAR(255) NOT NULL,
     contact VARCHAR(20),
-    status ENUM('active', 'inactive') DEFAULT 'inactive',
+    status ENUM('active', 'inactive') DEFAULT 'active',
     nmls_number VARCHAR(20),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -55,7 +55,7 @@ CREATE TABLE companies (
     company_description TEXT,
     company_address VARCHAR(255),
     company_contact VARCHAR(20),
-    status ENUM('active', 'inactive') DEFAULT 'inactive',
+    status ENUM('active', 'inactive') DEFAULT 'active',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
