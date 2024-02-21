@@ -64,12 +64,14 @@ CREATE TABLE companies (
 CREATE TABLE license_keys (
     id INT AUTO_INCREMENT PRIMARY KEY,
     key_code VARCHAR(50) NOT NULL,
+    encryption_key VARCHAR(50) NOT NULL,
     user_id INT NOT NULL,
     company_id INT NOT NULL,
     purchase_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     expiry_date DATE,
-    status ENUM('active', 'inactive') DEFAULT 'inactive',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    used_count VARCHAR(10) NOT NULL DEFAULT 0,
+    status ENUM('active', 'inactive') DEFAULT 'active',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 

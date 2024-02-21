@@ -25,11 +25,8 @@
         $sql = "SELECT COUNT(*) as Total FROM license_keys WHERE company_id = '$company_id'";
         $result2 = $conn->query($sql);
         $license_count = $result2->fetch_assoc();
-        if($license_count < 1) {
-
-        }
-        else{
-            $sql = "SELECT * FROM license_keys WHERE company_id = '$company_id'";
+        if($license_count > 0) {
+            $sql = "SELECT * FROM license_keys WHERE company_id = '$company_id' AND user_id = '$user_id'";
             $result3 = $conn->query($sql);
             $license_details = $result3->fetch_assoc();
         }
@@ -63,9 +60,9 @@
                                     <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Company</button>
                                 </li>
 
-                                <li class="nav-item">
+                                <!-- <li class="nav-item">
                                     <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
-                                </li>
+                                </li> -->
 
                                 <li class="nav-item">
                                     <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">License Key</button>
@@ -166,9 +163,8 @@
 
                                 </div>
 
-                                <div class="tab-pane fade pt-3" id="profile-settings">
+                                <!-- <div class="tab-pane fade pt-3" id="profile-settings">
 
-                                    <!-- Settings Form -->
                                     <form>
 
                                         <div class="row mb-3">
@@ -203,9 +199,9 @@
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-primary">Save Changes</button>
                                         </div>
-                                    </form><!-- End settings Form -->
+                                    </form>
 
-                                </div>
+                                </div> -->
 
                                 <div class="tab-pane fade pt-3" id="profile-change-password">
                                     <!-- Change Password Form -->
@@ -214,6 +210,7 @@
                                             if(isset($license_count) && $license_count['Total'] < 1){
                                                 ?>
                                                     <input type="hidden" name="action" value="generateLicense">
+                                                    <input type="hidden" name="company_id" value="<?php echo $company_details['id'];?>">
                                                     <div class="text-center">
                                                         <button type="submit" class="btn btn-primary">Generate License</button>
                                                     </div>
@@ -222,28 +219,24 @@
                                             else{
                                                 ?>
                                                     <div class="row mb-3">
-                                                        <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                                                        <label for="licenseKey" class="col-md-4 col-lg-3 col-form-label">License Key</label>
                                                         <div class="col-md-8 col-lg-9">
-                                                            <input name="password" type="password" class="form-control" id="currentPassword">
+                                                            <input name="licenseKey" type="text" class="form-control" id="licenseKey" value="<?php echo $license_details['key_code'];?>" readonly>
                                                         </div>
                                                     </div>
 
                                                     <div class="row mb-3">
-                                                        <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+                                                        <label for="secretKey" class="col-md-4 col-lg-3 col-form-label">Secret Key</label>
                                                         <div class="col-md-8 col-lg-9">
-                                                            <input name="newpassword" type="password" class="form-control" id="newPassword">
+                                                            <input name="secretKey" type="text" class="form-control" id="secretKey" value="<?php echo $license_details['encryption_key'];?>" readonly>
                                                         </div>
                                                     </div>
 
                                                     <div class="row mb-3">
-                                                        <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
+                                                        <label for="usedCount" class="col-md-4 col-lg-3 col-form-label">No of Keys used</label>
                                                         <div class="col-md-8 col-lg-9">
-                                                            <input name="renewpassword" type="password" class="form-control" id="renewPassword">
+                                                            <input name="usedCount" type="text" class="form-control" id="usedCount" value="<?php echo $license_details['used_count'];?>" readonly>
                                                         </div>
-                                                    </div>
-
-                                                    <div class="text-center">
-                                                        <button type="submit" class="btn btn-primary">Generate License</button>
                                                     </div>
                                                 <?php
                                             }

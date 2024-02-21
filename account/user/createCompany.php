@@ -1,69 +1,76 @@
 <?php
 
-require('../../assets/db/db_connection.php');
+    require('../../assets/db/db_connection.php');
 
-session_start();
+    session_start();
 
-if (!isset($_SESSION['user_id'])) {
-    echo '<script>window.location.href = "login.php";</script>';
-    exit();
-}
-
-include 'header.php';
-include 'sidebar.php';
-
-$user_id = $_SESSION['user_id'];
-
-if($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if(isset($_POST['companyNMLS'], $_POST['companyName'], $_POST['email'], $_POST['contact'], $_POST['description'])) {
-        $company_id = $conn->real_escape_string($_POST['id']);
-        $companyNMLS = $conn->real_escape_string($_POST['companyNMLS']);
-        $companyName = $conn->real_escape_string($_POST['companyName']);
-        $email = $conn->real_escape_string($_POST['email']);
-        $contact = $conn->real_escape_string($_POST['contact']);
-        $address = $conn->real_escape_string($_POST['address']);
-        $description = $conn->real_escape_string($_POST['description']);
-        
-        if(isset($_POST['action']) && $_POST['action'] == 'update'){
-            $query = "SELECT COUNT(*) AS nmls_count FROM companies WHERE company_nmls = '$companyNMLS' AND id != '$company_id'";
-            $result = $conn->query($query);
-            $row = $result->fetch_assoc();
-
-            if($row['nmls_count'] == 0) {
-                $updateQuery = "UPDATE companies SET company_nmls = '$companyNMLS', company_name = '$companyName', company_email = '$email', company_contact = '$contact', company_address = '$address', company_description = '$description' WHERE id = '$company_id'";
-                
-                if ($conn->query($updateQuery) === TRUE) {
-                    echo '<script>alert("Company updated successfully!");</script>';
-                    echo '<script>window.location.href = "company.php";</script>';
-                } else {
-                    echo '<script>alert("Error updating company: ' . $conn->error . '");</script>';
-                }
-            } else {
-                echo '<script>alert("Company with this NMLS number already exists!");</script>';
-            }
-        }else{
-            $query = "SELECT COUNT(*) AS nmls_count FROM companies WHERE company_nmls = '$companyNMLS'";
-            $result = $conn->query($query);
-            $row = $result->fetch_assoc();
-            
-            if($row['nmls_count'] == 0) {
-                $insertQuery = "INSERT INTO companies (user_id, company_nmls, company_name, company_email, company_contact, company_address, company_description) VALUES ('$user_id', '$companyNMLS', '$companyName', '$email', '$contact', '$address', '$description')";
-                if ($conn->query($insertQuery) === TRUE) {
-                    echo '<script>alert("Company created successfully!");</script>';
-                    echo '<script>window.location.href = "company.php";</script>';
-                } else {
-                    echo '<script>alert("Error creating company: ' . $conn->error . '");</script>';
-                }
-            } else {
-                echo '<script>alert("Company with this NMLS number already exists!");</script>';
-            }
-        }
-    } else {
-        echo '<script>alert("All fields are required!");</script>';
+    if (!isset($_SESSION['user_id'])) {
+        echo '<script>window.location.href = "login.php";</script>';
+        exit();
     }
-}
 
-$conn->close();
+    include 'header.php';
+    include 'sidebar.php';
+
+    $user_id = $_SESSION['user_id'];
+
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if(isset($_POST['companyNMLS'], $_POST['companyName'], $_POST['email'], $_POST['contact'], $_POST['description'])) {
+            $company_id = $conn->real_escape_string($_POST['id']);
+            $companyNMLS = $conn->real_escape_string($_POST['companyNMLS']);
+            $companyName = $conn->real_escape_string($_POST['companyName']);
+            $email = $conn->real_escape_string($_POST['email']);
+            $contact = $conn->real_escape_string($_POST['contact']);
+            $address = $conn->real_escape_string($_POST['address']);
+            $description = $conn->real_escape_string($_POST['description']);
+            
+            if(isset($_POST['action']) && $_POST['action'] == 'update'){
+                $query = "SELECT COUNT(*) AS nmls_count FROM companies WHERE company_nmls = '$companyNMLS' AND id != '$company_id'";
+                $result = $conn->query($query);
+                $row = $result->fetch_assoc();
+
+                if($row['nmls_count'] == 0) {
+                    $updateQuery = "UPDATE companies SET company_nmls = '$companyNMLS', company_name = '$companyName', company_email = '$email', company_contact = '$contact', company_address = '$address', company_description = '$description' WHERE id = '$company_id'";
+                    
+                    if ($conn->query($updateQuery) === TRUE) {
+                        echo '<script>alert("Company updated successfully!");</script>';
+                        echo '<script>window.location.href = "company.php";</script>';
+                    } else {
+                        echo '<script>alert("Error updating company: ' . $conn->error . '");</script>';
+                    }
+                } else {
+                    echo '<script>alert("Company with this NMLS number already exists!");</script>';
+                }
+            }else{
+                $query = "SELECT COUNT(*) AS nmls_count FROM companies WHERE company_nmls = '$companyNMLS'";
+                $result = $conn->query($query);
+                $row = $result->fetch_assoc();
+                
+                if($row['nmls_count'] == 0) {
+                    $insertQuery = "INSERT INTO companies (user_id, company_nmls, company_name, company_email, company_contact, company_address, company_description) VALUES ('$user_id', '$companyNMLS', '$companyName', '$email', '$contact', '$address', '$description')";
+                    if ($conn->query($insertQuery) === TRUE) {
+                        echo '<script>alert("Company created successfully!");</script>';
+                        echo '<script>window.location.href = "company.php";</script>';
+                    } else {
+                        echo '<script>alert("Error creating company: ' . $conn->error . '");</script>';
+                    }
+                } else {
+                    echo '<script>alert("Company with this NMLS number already exists!");</script>';
+                }
+            }
+        } else {
+            echo '<script>alert("All fields are required!");</script>';
+        }
+    }
+
+    $sql = "SELECT * FROM companies WHERE user_id = '$user_id'";
+    $result = $conn->query($sql);
+    $company_details = $result->fetch_assoc();
+    if($company_details > 0) {
+        echo '<script>window.location.href = "company.php";</script>';
+        exit();
+    }
+    $conn->close();
 ?>
 
     <main id="main" class="main">
