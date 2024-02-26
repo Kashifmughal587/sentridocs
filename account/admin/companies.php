@@ -16,7 +16,6 @@
         $sql = "SELECT * FROM companies";
         $result = $conn->query($sql);
     }
-    
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_entry'])) {
         $entry_id_to_delete = $_POST['delete_entry'];

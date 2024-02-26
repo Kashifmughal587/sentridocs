@@ -57,8 +57,8 @@
         <meta content="" name="keywords">
 
         <!-- Favicons -->
-        <link href="../assets/img/favicon.png" rel="icon">
-        <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+        <link href="../../img/favicon.ico" rel="icon">
+        <link href="../../img/favicon.ico" rel="apple-touch-icon">
 
         <!-- Google Fonts -->
         <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -84,9 +84,9 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
                                 <div class="d-flex justify-content-center py-4">
-                                    <a href="index.php" class="logo d-flex align-items-center w-auto">
-                                        <img src="../assets/img/logo.png" alt="">
-                                        <span class="d-none d-lg-block">Sentri Docs</span>
+                                    <a href="../../index.html" class="logo d-flex align-items-center w-auto">
+                                        <img src="../../img/logo-dark.png" alt="">
+                                        <!-- <span class="d-none d-lg-block">Sentri Docs</span> -->
                                     </a>
                                 </div><!-- End Logo -->
 

@@ -50,7 +50,7 @@ CREATE TABLE companies (
     user_id INT NOT NULL,
     user_nmls VARCHAR(20), 
     company_name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL,
+    company_email VARCHAR(100) NOT NULL,
     company_nmls VARCHAR(20),
     company_description TEXT,
     company_address VARCHAR(255),
@@ -84,6 +84,7 @@ CREATE TABLE activity_log (
     activity_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     ip_address VARCHAR(45),
     device_info VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 $user_id = 123; // Assuming the ID of the user performing the activity

@@ -21,7 +21,7 @@
             <section class="multi_step_form">
                 <form id="msform" action="process_form.php" method="POST">
                     <header class="intro">
-                        <img src="assets/images/logoipsum-325.svg" alt="SITE LOGO">
+                        <img src="img/logo-dark.png" alt="SITE LOGO">
                     </header>
                     <!-- fieldsets -->
                     <fieldset><!-- Page 1 -->
