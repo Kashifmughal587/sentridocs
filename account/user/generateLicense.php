@@ -1,12 +1,5 @@
 <?php
-    require('../../assets/db/db_connection.php');
-
-    session_start();
-
-    if (!isset($_SESSION['user_id'])) {
-        echo '<script>window.location.href = "login.php";</script>';
-        exit();
-    }
+    include 'include.php';
 
     $user_id = $_SESSION['user_id'];
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -38,8 +31,16 @@
 
                 $insert_sql = "INSERT INTO license_keys (key_code, encryption_key, user_id, company_id, purchase_date, expiry_date) VALUES ('$encrypted_data', '$encryption_key', '$user_id', '$company_id', '$purchase_date', '')";
                 if ($conn->query($insert_sql) === TRUE) {
+                    $_SESSION['last_activity'] = time();
                     echo '<script>alert("Key generated successfully!");</script>';
                     echo '<script>window.location.href = "company.php";</script>';
+                    // Activity Log
+                    $activity_type = 'LICENSE';
+                    $activity_description = 'License keys for company ID '.$company_id.' created by user with ID '. $user_id. '.';
+                    $ip_address = $_SERVER['REMOTE_ADDR'];
+                    $device_info = $_SERVER['HTTP_USER_AGENT'];
+                    log_activity($user_id, $activity_type, $activity_description, $ip_address, $device_info);
+                    // Activity Log
                     exit();
                 } else {
                     echo '<script>alert("Error: Unable to generate license key.");</script>';

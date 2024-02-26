@@ -1,15 +1,6 @@
 <?php
-    require('../../assets/db/db_connection.php');
 
-    session_start();
-
-    if (!isset($_SESSION['admin_id'])) {
-        echo '<script>window.location.href = "login.php";</script>';
-        exit();
-    }
-
-    include 'header.php';
-    include 'sidebar.php';
+    include 'include.php';
 
     if(isset($_GET['id'])) {
         $company_id = $_GET['id'];

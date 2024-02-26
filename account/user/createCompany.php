@@ -1,16 +1,5 @@
 <?php
-
-    require('../../assets/db/db_connection.php');
-
-    session_start();
-
-    if (!isset($_SESSION['user_id'])) {
-        echo '<script>window.location.href = "login.php";</script>';
-        exit();
-    }
-
-    include 'header.php';
-    include 'sidebar.php';
+    include 'include.php';
 
     $user_id = $_SESSION['user_id'];
 
@@ -33,6 +22,14 @@
                     $updateQuery = "UPDATE companies SET company_nmls = '$companyNMLS', company_name = '$companyName', company_email = '$email', company_contact = '$contact', company_address = '$address', company_description = '$description' WHERE id = '$company_id'";
                     
                     if ($conn->query($updateQuery) === TRUE) {
+                        $_SESSION['last_activity'] = time();
+                        // Activity Log
+                        $activity_type = 'COMPANY';
+                        $activity_description = 'Company with ID '.$companyName.' updated successfully.';
+                        $ip_address = $_SERVER['REMOTE_ADDR'];
+                        $device_info = $_SERVER['HTTP_USER_AGENT'];
+                        log_activity($user_id, $activity_type, $activity_description, $ip_address, $device_info);
+                        // Activity Log
                         echo '<script>alert("Company updated successfully!");</script>';
                         echo '<script>window.location.href = "company.php";</script>';
                     } else {
@@ -49,6 +46,14 @@
                 if($row['nmls_count'] == 0) {
                     $insertQuery = "INSERT INTO companies (user_id, company_nmls, company_name, company_email, company_contact, company_address, company_description) VALUES ('$user_id', '$companyNMLS', '$companyName', '$email', '$contact', '$address', '$description')";
                     if ($conn->query($insertQuery) === TRUE) {
+                        $_SESSION['last_activity'] = time();
+                        // Activity Log
+                        $activity_type = 'COMPANY';
+                        $activity_description = 'Company '.$companyName.' created successfully.';
+                        $ip_address = $_SERVER['REMOTE_ADDR'];
+                        $device_info = $_SERVER['HTTP_USER_AGENT'];
+                        log_activity($user_id, $activity_type, $activity_description, $ip_address, $device_info);
+                        // Activity Log
                         echo '<script>alert("Company created successfully!");</script>';
                         echo '<script>window.location.href = "company.php";</script>';
                     } else {
@@ -63,14 +68,23 @@
         }
     }
 
+    $sql = "SELECT * FROM users WHERE id = '$user_id'";
+    $result = $conn->query($sql);
+    $row = $result->fetch_assoc();
+
+    if($row['nmls_number'] == ''){
+        echo '<script>alert("Please first complete your profile!");</script>';
+        echo '<script>window.location.href = "profile.php";</script>';
+        exit();
+    }
     $sql = "SELECT * FROM companies WHERE user_id = '$user_id'";
     $result = $conn->query($sql);
     $company_details = $result->fetch_assoc();
     if($company_details > 0) {
+        echo '<script>alert("No company registered!");</script>';
         echo '<script>window.location.href = "company.php";</script>';
         exit();
     }
-    $conn->close();
 ?>
 
     <main id="main" class="main">

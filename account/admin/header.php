@@ -45,14 +45,15 @@
             <nav class="header-nav ms-auto">
                 <ul class="d-flex align-items-center">
 
-                    <li class="nav-item dropdown">
+                    <!-- <li class="nav-item dropdown"> -->
 
-                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                        <!-- <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                             <i class="bi bi-bell"></i>
                             <span class="badge bg-primary badge-number">4</span>
-                        </a><!-- End Notification Icon -->
+                        </a> -->
+                        <!-- End Notification Icon -->
 
-                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+                        <!-- <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
                             <li class="dropdown-header">
                                 You have 4 new notifications
                                 <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
@@ -116,10 +117,11 @@
                                 <a href="#">Show all notifications</a>
                             </li>
 
-                        </ul>
+                        </ul> -->
                         <!-- End Notification Dropdown Items -->
 
-                    </li><!-- End Notification Nav -->
+                    <!-- </li> -->
+                    <!-- End Notification Nav -->
 
                     <li class="nav-item dropdown pe-3">
 

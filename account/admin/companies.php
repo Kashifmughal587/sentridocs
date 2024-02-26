@@ -1,15 +1,6 @@
 <?php
-    require('../../assets/db/db_connection.php');
 
-    session_start();
-
-    if (!isset($_SESSION['admin_id'])) {
-        echo '<script>window.location.href = "login.php";</script>';
-        exit();
-    }
-
-    include_once 'header.php';
-    include_once 'sidebar.php';
+    include 'include.php';
     require_once '../../assets/functions.php';
 
     if (isset($_GET['user_id'])) {
@@ -34,6 +25,15 @@
 
             $delete_sql = "DELETE FROM companies WHERE id = $entry_id_to_delete";
             $conn->query($delete_sql);
+            $_SESSION['last_activity'] = time();
+            // Activity Log
+            $admin_id = $_SESSION['admin_id'];
+            $activity_type = 'COMPANY';
+            $activity_description = 'Company with ID'. $entry_id_to_delete .' deleted by ' .$admin_id. '.';
+            $ip_address = $_SERVER['REMOTE_ADDR'];
+            $device_info = $_SERVER['HTTP_USER_AGENT'];
+            log_activity($admin_id, $activity_type, $activity_description, $ip_address, $device_info);
+            // Activity Log
 
             echo '<script>window.location.href = "companies.php";</script>';
             exit();

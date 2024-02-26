@@ -1,15 +1,6 @@
 <?php
-    require('../../assets/db/db_connection.php');
 
-    session_start();
-
-    if (!isset($_SESSION['admin_id'])) {
-        echo '<script>window.location.href = "login.php";</script>';
-        exit();
-    }
-
-    include 'header.php';
-    include 'sidebar.php';
+    include 'include.php';
 
     if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $entry_id = $_GET['id'];
@@ -20,11 +11,11 @@
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
         } else {
-            header('Location: dashboard.php');
+            header('Location: index.php');
             exit();
         }
     } else {
-        header('Location: dashboard.php');
+        header('Location: index.php');
         exit();
     }
     
@@ -32,8 +23,6 @@
     {
         return htmlspecialchars(trim($input));
     }
-
-    $conn->close();
 ?>
     <main id="main" class="main">
 

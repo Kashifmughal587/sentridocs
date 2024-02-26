@@ -1,16 +1,5 @@
 <?php
-
-    require('../../assets/db/db_connection.php');
-
-    session_start();
-
-    if (!isset($_SESSION['user_id'])) {
-        echo '<script>window.location.href = "login.php";</script>';
-        exit();
-    }
-    
-    include 'header.php';
-    include 'sidebar.php';
+    include 'include.php';
 
     $user_id = $_SESSION['user_id'];
 
@@ -40,8 +29,6 @@
             $license_details = $result3->fetch_assoc();
         }
     }
-    
-    $conn->close();
 ?>
 
     <main id="main" class="main">

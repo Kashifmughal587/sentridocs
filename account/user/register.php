@@ -1,48 +1,47 @@
 <?php
 
-session_start();
+    session_start();
+    require('../../assets/db/db_connection.php');
 
-require('../../assets/db/db_connection.php');
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $firstname = $_POST['firstname'];
+        $lastname = $_POST['lastName'];
+        $email = $_POST['email'];
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    $firstname = $_POST['firstname'];
-    $lastname = $_POST['lastName'];
-    $email = $_POST['email'];
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        $sql = "SELECT * FROM users WHERE username = '$username'";
+        $result = $conn->query($sql);
 
-    $sql = "SELECT * FROM users WHERE username = '$username'";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-        echo '<script>alert("Username already exists. Please choose a different username.");</script>';
-    } else {
-        $insert_sql = "INSERT INTO users (firstname, lastname, email, username, password) VALUES ('$firstname', '$lastname', '$email', '$username', '$hashed_password')";
-        if ($conn->query($insert_sql) === TRUE) {
-            $_SESSION['user_id'] = $conn->insert_id;
-            $_SESSION['user_username'] = $username;
-            $_SESSION['user_fullname'] = $row['firstname'] . ' ' . $row['lastname'];
-            $_SESSION['user_email'] = $row['email'];
-
-            // Activity Log
-            $user_id = $conn->insert_id;;
-            $activity_type = 'register';
-            $activity_description = 'New registration with username, '. $username;
-            $ip_address = $_SERVER['REMOTE_ADDR'];
-            $device_info = $_SERVER['HTTP_USER_AGENT'];
-            log_activity($user_id, $activity_type, $activity_description, $ip_address, $device_info);
-            // Activity Log
-            header('Location: profile.php');
-            exit();
+        if ($result->num_rows > 0) {
+            echo '<script>alert("Username already exists. Please choose a different username.");</script>';
         } else {
-            echo '<script>alert("Error: Unable to register user.");</script>';
+            $insert_sql = "INSERT INTO users (firstname, lastname, email, username, password) VALUES ('$firstname', '$lastname', '$email', '$username', '$hashed_password')";
+            if ($conn->query($insert_sql) === TRUE) {
+                $_SESSION['user_id'] = $conn->insert_id;
+                $_SESSION['user_username'] = $username;
+                $_SESSION['user_fullname'] = $row['firstname'] . ' ' . $row['lastname'];
+                $_SESSION['user_email'] = $row['email'];
+                $_SESSION['last_activity'] = time();
+                // Activity Log
+                $user_id = $conn->insert_id;
+                $activity_type = 'USER';
+                $activity_description = 'New registration with username, '. $username;
+                $ip_address = $_SERVER['REMOTE_ADDR'];
+                $device_info = $_SERVER['HTTP_USER_AGENT'];
+                log_activity($user_id, $activity_type, $activity_description, $ip_address, $device_info);
+                // Activity Log
+                header('Location: profile.php');
+                exit();
+            } else {
+                echo '<script>alert("Error: Unable to register user.");</script>';
+            }
         }
-    }
 
-    $conn->close();
-}
+        $conn->close();
+    }
 ?>
 
 

@@ -19,23 +19,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['user_username'] = $username;
             $_SESSION['user_fullname'] = $row['firstname'] . ' ' . $row['lastname'];
             $_SESSION['user_email'] = $row['email'];
-
-            // Activity Log
-            $user_id = $row['id'];
-            $activity_type = 'login';
-            $activity_description = $username.' logged in successfully.';
-            $ip_address = $_SERVER['REMOTE_ADDR'];
-            $device_info = $_SERVER['HTTP_USER_AGENT'];
-            log_activity($user_id, $activity_type, $activity_description, $ip_address, $device_info);
-            // Activity Log
+            $_SESSION['last_activity'] = time();
 
             header('Location: profile.php');
             exit();
         } else {
-            echo '<script>alert("Incorrect Password");</script>';
+            echo '<script>alert("Incorrect Password!");</script>';
         }
     } else {
-        echo '<script>alert("Invalid username");</script>';
+        echo '<script>alert("username or password incorrect!");</script>';
     }
 }
 

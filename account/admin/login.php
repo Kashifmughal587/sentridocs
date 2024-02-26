@@ -17,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (password_verify($password, $row['password'])) {
             $_SESSION['admin_id'] = $row['id'];
             $_SESSION['admin_username'] = $username;
+            $_SESSION['last_activity'] = time();
             header('Location: index.php');
             exit();
         } else {

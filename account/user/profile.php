@@ -1,14 +1,5 @@
 <?php
-    require('../../assets/db/db_connection.php');
-
-    session_start();
-
-    if (!isset($_SESSION['user_id'])) {
-        echo '<script>window.location.href = "login.php";</script>';
-        exit();
-    }
-    include 'header.php';
-    include 'sidebar.php';
+    include 'include.php';
 
     $user_id = $_SESSION['user_id'];
 
@@ -28,13 +19,13 @@
                 $row = $result->fetch_assoc();
                 $hashedPassword = $row['password'];
                 // $hashedCurrentPassword = password_hash($currentPassword, PASSWORD_DEFAULT);
-                echo '<script>alert("'. $currentPassword .'!");</script>';
                 if (password_verify($currentPassword, $hashedPassword)) {
                     $hashedNewPassword = password_hash($newPassword, PASSWORD_DEFAULT);
     
                     $updateQuery = "UPDATE users SET password = '$hashedNewPassword' WHERE id = '$user_id'";
                     if ($conn->query($updateQuery) === TRUE) {
                         echo '<script>alert("Password changed successfully!");</script>';
+                        $_SESSION['last_activity'] = time();
                     } else {
                         echo '<script>alert("Error changing password: ' . $conn->error . '");</script>';
                     }
@@ -62,6 +53,7 @@
                 $sql = "UPDATE users SET firstname='$firstname', lastname='$lastname', nmls_number='$nmlsNumber', contact='$phone' WHERE id='$user_id'";
                 
                 if ($conn->query($sql) === TRUE) {
+                    $_SESSION['last_activity'] = time();
                     echo '<script>alert("Profile updated successfully!");</script>';
                 } else {
                     echo '<script>alert("Error updating profile: ' . $conn->error . '");</script>';
@@ -87,7 +79,6 @@
     }else{
         echo '<script>alert("User not found.")</script>';
     }
-$conn->close();
 ?>
     <main id="main" class="main">
 
@@ -131,9 +122,9 @@ $conn->close();
                                     <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
                                 </li>
 
-                                <li class="nav-item">
+                                <!-- <li class="nav-item">
                                     <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
-                                </li>
+                                </li> -->
 
                                 <li class="nav-item">
                                     <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
@@ -161,7 +152,11 @@ $conn->close();
                                         <div class="col-lg-3 col-md-4 label">Company</div>
                                             <?php
                                                 if(isset($companyCount) && $companyCount['Total'] > 0) {
-                                                    echo '';
+                                                    // $query = 'SELECT * FROM companies WHERE user_id = '.$user_id;
+                                                    $query = "SELECT * FROM companies WHERE user_id = '$user_id'";
+                                                    $result3 = $conn->query($query);
+                                                    $company_details = $result3->fetch_assoc();
+                                                    echo '<div class="col-lg-9 col-md-8">'.$company_details['company_name'].'</div>';
                                                 }else{
                                                     echo '<div class="col-lg-9 col-md-8">Not registered yet.</div>';
                                                 }
@@ -227,9 +222,8 @@ $conn->close();
 
                                 </div>
 
-                                <div class="tab-pane fade pt-3" id="profile-settings">
+                                <!-- <div class="tab-pane fade pt-3" id="profile-settings">
 
-                                    <!-- Settings Form -->
                                     <form>
 
                                         <div class="row mb-3">
@@ -266,7 +260,7 @@ $conn->close();
                                         </div>
                                     </form>
 
-                                </div>
+                                </div> -->
 
                                 <div class="tab-pane fade pt-3" id="profile-change-password">
                                     <form method="POST" action="profile.php">

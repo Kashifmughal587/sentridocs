@@ -1,15 +1,6 @@
 <?php
-    require('../../assets/db/db_connection.php');
 
-    session_start();
-
-    if (!isset($_SESSION['admin_id'])) {
-        echo '<script>window.location.href = "login.php";</script>';
-        exit();
-    }
-
-    include_once 'header.php';
-    include_once 'sidebar.php';
+    include 'include.php';
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_entry'])) {
         $entry_id_to_delete = $_POST['delete_entry'];
@@ -18,6 +9,15 @@
 
             $delete_sql = "DELETE FROM users WHERE id = $entry_id_to_delete";
             $conn->query($delete_sql);
+            $_SESSION['last_activity'] = time();
+            // Activity Log
+            $admin_id = $_SESSION['admin_id'];
+            $activity_type = 'USER';
+            $activity_description = 'User with ID'. $entry_id_to_delete. ' deleted successfully.';
+            $ip_address = $_SERVER['REMOTE_ADDR'];
+            $device_info = $_SERVER['HTTP_USER_AGENT'];
+            log_activity($admin_id, $activity_type, $activity_description, $ip_address, $device_info);
+            // Activity Log
 
             header('Location: ' . $_SERVER['PHP_SELF']);
             exit();
@@ -38,6 +38,7 @@
         $stmt->bind_param("i", $user_id);
         $stmt->execute();
         $stmt->close();
+        $_SESSION['last_activity'] = time();
     }
 
     $sql = "SELECT * FROM users";
