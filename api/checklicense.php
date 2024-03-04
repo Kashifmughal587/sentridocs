@@ -45,7 +45,7 @@ echo json_encode($response);
 function validateLicense($license_key, $secret_key) {
     global $conn;
 
-    $query = "SELECT * FROM license_keys WHERE key_code = '$license_key' AND encryption_key = '$secret_key'";
+    $query = "SELECT * FROM license_keys WHERE key_code = '$license_key' AND encryption_key = '$secret_key' AND status = 'active'";
     $result = $conn->query($query);
 
     if ($result->num_rows > 0) {

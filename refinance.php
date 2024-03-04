@@ -10,18 +10,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.2/css/intlTelInput.css">
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/custom.css">
-    <link rel="stylesheet" href="assets/css/demo.css">
+    <link rel="stylesheet" href="https://sentridocs.com/assets/css/style.css">
+    <link rel="stylesheet" href="https://sentridocs.com/assets/css/custom.css">
+    <link rel="stylesheet" href="https://sentridocs.com/assets/css/demo.css">
 </head>
 
 <body>
     <main>
         <article class="main">
             <section class="multi_step_form">
-                <form id="msform" action="process_form.php" method="POST">
+                <form id="msform" action="https://sentridocs.com/process_form.php" method="POST">
                     <header class="intro">
-                        <img src="img/logo-dark.png" alt="SITE LOGO">
+                        <img src="https://sentridocs.com/img/logo-dark.png" alt="SITE LOGO">
                     </header>
                     <!-- fieldsets -->
                     <fieldset><!-- Page 1 -->
@@ -33,7 +33,7 @@
                                 <input id="singleFamily" type="radio" name="property_type" value="singleFamily">
                                 <div class="ah-card-inner">
                                     <div class="ah-img-holder">
-                                        <img src="assets/images/img_1.png" class="card-img-top" alt="Image 1">
+                                        <img src="https://sentridocs.com/assets/images/img_1.png" class="card-img-top" alt="Image 1">
                                     </div>
                                     <h5 class="ah-card-title">Single Family Home</h5>
                                 </div>
@@ -42,7 +42,7 @@
                                 <input id="Condominium" type="radio" name="property_type" value="Condominium">
                                 <div class="ah-card-inner">
                                     <div class="ah-img-holder">
-                                        <img src="assets/images/img_2.png" class="card-img-top" alt="Image 1">
+                                        <img src="https://sentridocs.com/assets/images/img_2.png" class="card-img-top" alt="Image 1">
                                     </div>
                                     <h5 class="ah-card-title">Condominium</h5>
                                 </div>
@@ -51,7 +51,7 @@
                                 <input id="Townhome" type="radio" name="property_type" value="Townhome">
                                 <div class="ah-card-inner">
                                     <div class="ah-img-holder">
-                                        <img src="assets/images/img_3.png" class="card-img-top" alt="Image 1">
+                                        <img src="https://sentridocs.com/assets/images/img_3.png" class="card-img-top" alt="Image 1">
                                     </div>
                                     <h5 class="ah-card-title">Townhome</h5>
                                 </div>

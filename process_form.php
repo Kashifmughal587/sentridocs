@@ -1,8 +1,8 @@
 <?php
 
-require 'assets/fpdf/fpdf.php';
-require 'assets/db/db_connection.php';
-require 'vendor/autoload.php';
+    require 'https://sentridocs.com/assets/fpdf/fpdf.php';
+    require 'https://sentridocs.com/assets/db/db_connection.php';
+    require 'https://sentridocs.com/vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
