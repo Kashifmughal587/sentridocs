@@ -136,7 +136,7 @@ a.order-btn {
 .css-shape-bottom {
     position: absolute;
     height: 168px;
-    background-image: url('../img/banner-roundShape.png');
+    background-image: url('../assets/img/banner-roundShape.png');
     bottom: -20px;
     left: 0;
     right: 0;

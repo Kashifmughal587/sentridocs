@@ -1,3 +1,9 @@
+<?php
+// Enable CORS
+header("Access-Control-Allow-Origin: https://stonecreek.mortgage");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,7 +39,7 @@
                                 <input id="singleFamily" type="radio" name="property_type" value="singleFamily">
                                 <div class="ah-card-inner">
                                     <div class="ah-img-holder">
-                                        <img src="https://sentridocs.com/assets/images/img_1.png" class="card-img-top" alt="Image 1">
+                                        <img src="https://sentridocs.com/assets/img/img_1.png" class="card-img-top" alt="Image 1">
                                     </div>
                                     <h5 class="ah-card-title">Single Family Home</h5>
                                 </div>
@@ -42,7 +48,7 @@
                                 <input id="Condominium" type="radio" name="property_type" value="Condominium">
                                 <div class="ah-card-inner">
                                     <div class="ah-img-holder">
-                                        <img src="https://sentridocs.com/assets/images/img_2.png" class="card-img-top" alt="Image 1">
+                                        <img src="https://sentridocs.com/assets/img/img_2.png" class="card-img-top" alt="Image 1">
                                     </div>
                                     <h5 class="ah-card-title">Condominium</h5>
                                 </div>
@@ -51,7 +57,7 @@
                                 <input id="Townhome" type="radio" name="property_type" value="Townhome">
                                 <div class="ah-card-inner">
                                     <div class="ah-img-holder">
-                                        <img src="https://sentridocs.com/assets/images/img_3.png" class="card-img-top" alt="Image 1">
+                                        <img src="https://sentridocs.com/assets/img/img_3.png" class="card-img-top" alt="Image 1">
                                     </div>
                                     <h5 class="ah-card-title">Townhome</h5>
                                 </div>
