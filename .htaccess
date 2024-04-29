@@ -1,3 +1,8 @@
 RewriteEngine on
 RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
 RewriteRule ^(.*)$ http://%1%{REQUEST_URI} [R=301,QSA,NC,L]
+
+RewriteBase /sentridocs/sentridocs/
+
+# Rewrite rule to handle /company_id/refinance.php
+RewriteRule ^([^/]+)/refinance\.php$ refinance.php?company_id=$1 [L]

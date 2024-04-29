@@ -96,7 +96,7 @@
                 <div class="col-xl-4">
                     <div class="card">
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                            <img src="../assets/img/user.png" alt="Profile" class="rounded-circle">
+                            <img src="../../assets/img/user.png" alt="Profile" class="rounded-circle">
                             <h2><?php echo $user_details['username']?></h2>
                             <h3><a href="mailto:<?php echo $user_details['email'] ?>"><?php echo $user_details['email']?></a></h3>
                             <div class="social-links mt-2">

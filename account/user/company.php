@@ -72,6 +72,31 @@
                                     <h5 class="card-title">Company Details</h5>
 
                                     <div class="row">
+                                        <label class="col-md-4 col-lg-3 col-form-label">Current Logo</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            <?php 
+                                                if(!empty($company_details['company_logo'])) {
+                                                    echo '<img src="https://sentridocs.com/'.$company_details['company_logo'].'" alt="Company Logo" style="max-width: 200px;">';
+                                                } else {
+                                                    echo 'No logo uploaded.';
+                                                }
+                                            ?>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <label class="col-md-4 col-lg-3 col-form-label">Company Favicon</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            <?php 
+                                                if(!empty($company_details['company_fav'])) {
+                                                    echo '<img src="https://sentridocs.com/'.$company_details['company_fav'].'" alt="Company Favicon" style="max-width: 200px;">';
+                                                } else {
+                                                    echo 'No icon uploaded.';
+                                                }
+                                            ?>
+                                        </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-lg-3 col-md-4 label">NMLS Number</div>
                                         <div class="col-lg-9 col-md-8">
                                             <?php echo $company_details['company_nmls'] ?></div>
@@ -102,14 +127,34 @@
                                         <div class="col-lg-9 col-md-8"><?php echo $company_details['company_description']?></div>
                                     </div>
 
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Refinance Page URL</div>
+                                        <div class="col-lg-9 col-md-8"><?php echo 'https://sentridocs.com/'.$company_details['company_slug'],'/refinance.php'?></div>
+                                    </div>
+
                                 </div>
 
                                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
                                     <!-- Profile Edit Form -->
-                                    <form action="createCompany.php" method="POST" action="update">
+                                    <form action="createCompany.php" method="POST" action="update" enctype="multipart/form-data">
                                         <input type="hidden" name="action" value="update">
                                         <input type="hidden" name="id" id="id" value="<?php echo $company_details['id'];?>">
+
+                                        <div class="row mb-3">
+                                            <label for="companyLogo" class="col-md-4 col-lg-3 col-form-label">Company logo</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="companyLogo" type="file" class="form-control" id="companyLogo" value="<?php echo $company_details['company_logo'];?>">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row mb-3">
+                                            <label for="companyFav" class="col-md-4 col-lg-3 col-form-label">Company Favicon</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="companyFav" type="file" class="form-control" id="companyFav" value="<?php echo $company_details['company_fav'];?>">
+                                            </div>
+                                        </div>
+
                                         <div class="row mb-3">
                                             <label for="companyNMLS" class="col-md-4 col-lg-3 col-form-label">NMLS Number</label>
                                             <div class="col-md-8 col-lg-9">

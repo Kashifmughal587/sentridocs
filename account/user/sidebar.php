@@ -22,7 +22,15 @@
                 <i class="bi bi-menu-button-wide"></i>
                 <span>Company</span>
             </a>
-        </li><!-- End F.A.Q Page Nav -->
+        </li><!-- End Company Page Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link" href="form.php">
+            <i class="bi bi-person"></i>
+            <span>Form Entries</span>
+            </a>
+        </li>
+        <!-- End Form Entries Page Nav -->
     </ul>
 
     <!-- <li class="nav-item">

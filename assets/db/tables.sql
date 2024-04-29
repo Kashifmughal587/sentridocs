@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS mortgage_leads (
         email_address VARCHAR(255),
         phone_number VARCHAR(15),
         lead_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        user_id INT NOT NULL,
     );
 
 CREATE TABLE admins (
@@ -50,15 +51,18 @@ CREATE TABLE companies (
     user_id INT NOT NULL,
     user_nmls VARCHAR(20), 
     company_name VARCHAR(100) NOT NULL,
+    company_slug VARCHAR(100) NOT NULL, -- Added company_slug field
     company_email VARCHAR(100) NOT NULL,
     company_nmls VARCHAR(20),
     company_description TEXT,
     company_address VARCHAR(255),
     company_contact VARCHAR(20),
+    company_logo VARCHAR(255), -- Added company_logo field
     status ENUM('active', 'inactive') DEFAULT 'active',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
 
 
 CREATE TABLE license_keys (
@@ -100,3 +104,11 @@ VALUES (NULL, 'johndoe', 'John', 'Doe', 'johndoe@gmail.com', '$2y$10$bzrAF8tjf1c
 
 INSERT INTO `companies` (`user_id`, `user_nmls`, `company_name`, `company_email`, `company_nmls`, `company_description`, `company_address`, `company_contact`, `status`, `created_at`, `updated_at`) 
 VALUES ('1', '1122', 'Sentri Docs', 'sentridocs@gmail.com', '1256', 'Description', 'Sydney, Australia', '923111234567', 'inactive', current_timestamp(), current_timestamp());
+
+ALTER TABLE companies
+ADD COLUMN company_slug VARCHAR(100) NOT NULL AFTER company_name,
+ADD COLUMN company_logo VARCHAR(255) AFTER company_contact,
+ADD COLUMN company_fav VARCHAR(255) AFTER company_logo;
+
+ALTER TABLE mortgage_leads
+ADD COLUMN company_id INT NOT NULL;

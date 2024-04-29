@@ -61,6 +61,30 @@
                             <!-- Active Table -->
                             <table class="table table-borderless">
                                 <tr>
+                                    <th scope="col">Company Logo</th>
+                                    <td scope="col">
+                                        <?php 
+                                            if(!empty($company_details['company_logo'])) {
+                                                echo '<img src="https://sentridocs.com/'.$company_details['company_logo'].'" alt="Company Logo" style="max-width: 200px;">';
+                                            } else {
+                                                echo 'No logo uploaded.';
+                                            }
+                                        ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">Company Favicon</th>
+                                    <td scope="col">
+                                        <?php 
+                                            if(!empty($company_details['company_fav'])) {
+                                                echo '<img src="https://sentridocs.com/'.$company_details['company_fav'].'" alt="Company Favicon" style="max-width: 200px;">';
+                                            } else {
+                                                echo 'No icon uploaded.';
+                                            }
+                                        ?>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <th scope="col">Company NMLS</th>
                                     <td scope="col"><?php echo $company_details["company_nmls"]; ?></td>
                                 </tr>
@@ -75,6 +99,10 @@
                                 <tr>
                                     <th scope="row">Address</th>
                                     <td><?php echo $company_details["company_address"]; ?></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Company Refinance URL</th>
+                                    <td><?php echo 'https://sentridocs.com/'.$company_details['company_slug'],'/refinance.php'?></td>
                                 </tr>
                             </table>
                             <h5 class="card-title">

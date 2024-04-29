@@ -1,8 +1,26 @@
 <?php
-// Enable CORS
-header("Access-Control-Allow-Origin: https://stonecreek.mortgage");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
+    // Include your database connection file here
+    include 'assets/db/db_connection.php';
+
+    // Get the company_id from the URL
+    if(isset($_GET['company_id'])){
+        $company_slug = $_GET['company_id'];
+
+        // Query to fetch company details based on company_slug
+        $query = "SELECT * FROM companies WHERE company_slug = '$company_slug'";
+        $result = $conn->query($query);
+
+        if ($result->num_rows > 0) {
+            // Fetch company details
+            $company_details = $result->fetch_assoc();
+        } else {
+            echo '<script>alert("Company not found!");</script>';
+            echo '<script>window.location.href = "https://sentridocs.com/";</script>';
+        }
+
+        $conn->close();
+    }
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,6 +29,14 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization");
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Lead Generation Form</title>
+    <?php 
+        if(!empty($company_details['company_fav'])) {
+            echo '<link rel="shortcut icon" href="https://sentridocs.com/'.$company_details['company_fav'].'" type="image/x-icon">"';
+        }else{
+            echo '<link rel="shortcut icon" href="https://sentridocs.com/assets/img/favicon.ico" type="image/x-icon">"';
+        }
+    ?>
+    <link rel="shortcut icon" href="'$com'" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.2/css/intlTelInput.css">
@@ -26,8 +52,15 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization");
         <article class="main">
             <section class="multi_step_form">
                 <form id="msform" action="https://sentridocs.com/process_form.php" method="POST">
+                    <input type="hidden" name="companyID" value="<?php echo isset($company_details['id']) ? $company_details['id'] : 'sentridocs'; ?>">
                     <header class="intro">
-                        <img src="https://sentridocs.com/img/logo-dark.png" alt="SITE LOGO">
+                        <?php 
+                            if(!empty($company_details['company_logo'])) {
+                                echo '<img src="http://localhost/sentridocs/sentridocs/'.$company_details['company_logo'].'" alt="Company Logo" style="max-width: 200px;">';
+                            } else {
+                                echo '<img src="http://localhost/sentridocs/sentridocs/assets/img/logo-dark.png" alt="Company Logo" style="max-width: 200px;">';
+                            }
+                        ?>
                     </header>
                     <!-- fieldsets -->
                     <fieldset><!-- Page 1 -->

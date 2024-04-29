@@ -106,6 +106,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $bankruptcy_foreclosure     = isset($_POST['bankruptcy_foreclosure']) ? 1 : 0;
     $cash_out_amount            = sanitizeInput($_POST['cash_out_amount']);
     $credit_score               = sanitizeInput($_POST['credit_score']);
+    $companyID                  = sanitizeInput($_POST['companyID']);
+    if ($companyID == 'sentridocs'){
+        $companyID == 0;
+    }
 
     $formData = [
         'full_name'                 => $full_name,
@@ -130,6 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'bankruptcy_foreclosure'    => $bankruptcy_foreclosure,
         'cash_out_amount'           => $cash_out_amount,
         'credit_score'              => $credit_score,
+        'company_id'                => $companyID
     ];
 
     insertFormData($formData);
