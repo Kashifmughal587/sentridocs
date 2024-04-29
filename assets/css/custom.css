@@ -18,23 +18,3 @@
 .clear-input:hover {
     color: red; /* Change this color if needed */
 }
-
-.container-fluid {
-    padding-left: 0;
-    padding-right: 0;
-}
-.sidebar {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 1000;
-    padding-top: 20px;
-    padding-right: 10px;
-    padding-bottom: 20px;
-    padding-left: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-.nav-link.active {
-    font-weight: bold;
-}

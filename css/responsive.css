@@ -1,0 +1,296 @@
+@media only screen and (max-width: 375px) and (min-width: 346px) {
+}
+
+@media only screen and (max-width: 544px) and (min-width: 375px) {
+    
+}
+
+@media only screen and (max-width: 555px) and (min-width: 376px) {
+}
+
+@media only screen and (max-width: 768px) and (min-width: 544px) {
+}
+
+@media only screen and (max-width: 1222px) and (min-width: 999px) {
+}
+
+@media only screen and (max-width: 1358px) and (min-width: 1202px) {
+}
+
+@media only screen and (max-width: 1200px) and (min-width: 993px) {
+}
+
+@media only screen and (max-width: 991px) and (min-width: 300px) {
+	.sub-banner-title {
+		font-size: 35px;
+	}
+	
+	div#choose-us {
+		width: 100%;
+		overflow-x: hidden;
+		overflow-y: hidden;
+	}
+	
+	.about-img-area.only-right-side {
+		right: 0px;
+	}
+	
+	img.img.place-img.wtt {
+		width: 96%;
+		top: 3px;
+	}
+	
+    .mobile-menu {
+
+        display: block;
+    }
+	
+    .inner-menu>ul.menu>li {
+        display: block;
+        margin-bottom: 20px;
+    
+    }
+	
+    .mobile-menu {
+        position: fixed;
+        background: #fff;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 9999;
+    }
+	
+    .inner-menu>ul.menu>li>a {
+        line-height: 1;
+        text-decoration: none;
+        color: #798490;
+        font-family: 'Rubik', sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 18px;
+    }
+	
+    a.close-menu {
+        text-decoration: none;
+        top: 40px;
+        position: absolute;
+        right: 35px;
+        color: #004187;
+        font-size: 40px;
+    }
+	
+    .inner-menu>ul {
+        text-align: center;
+        margin-top: 100px;
+    }
+	
+    .main-menu {
+        display: none;
+    }
+	
+    a.humbarger {
+        line-height: 95px;
+        font-size: 30px;
+        color: #004187;
+        text-align: right;
+        float: right;
+        display: block;
+    }
+	
+	.img.place-img {
+		width: 100%;
+		top: unset;
+		left: -16px;
+	}
+	
+    .about-content {
+        transform: unset;
+        position: static;
+        top: unset;
+    }
+	
+    .inner-banner-content-area>h2 {
+        font-family: 'Rubik', sans-serif;
+        font-size: 30px;
+        font-weight: 700;
+    }
+	
+    .main-hero-section {
+        height: 400px;
+    }
+	
+    .one-contact-area .contact-content {
+        padding: 80px 0 80px;
+        max-width: 100%;
+        margin-left: 0;
+    }
+	
+    .about-img-area>img.img.wt {
+        right: -12px;
+        left: unset;
+    }
+	
+    img.img.place-img.wtt {
+        left: unset;
+        right: -13px;
+    }
+	
+    .css-shape-bottom {
+        background-position: center;
+    }
+	
+    .about-content>h3 {
+        font-size: 28px;
+        font-weight: 700;
+        font-family: 'Montserrat', sans-serif;
+    }
+	
+    .about-content {
+        margin-top: 40px;
+    }
+	
+    .m-90 {
+        margin-top: 60px;
+    }
+	
+    .about-img-area {
+        margin-top: 30px;
+    }
+	
+    .about-header>h2 {
+        font-weight: 700;
+        font-size: 34px;
+    }
+	
+    .about-header>h4 {
+        font-size: 16px;
+        font-weight: 700;
+        color: #ff6347;
+        margin-bottom: 4px;
+    }
+	
+    .service-card {
+        margin-bottom: 65px;
+    }
+	
+    .one-contact-area .contact-content .contact-emergency i {
+        font-size: 40px;
+    }
+	
+    .one-contact-area .contact-content .contact-emergency {
+        position: relative;
+        padding-left: 59px;
+        margin-top: 10px;
+    }
+	
+    .one-contact-area .contact-content .contact-emergency a {
+        font-size: 16px;
+    }
+	
+    .one-contact-area .contact-content .contact-emergency span {
+        font-size: 13px;
+        margin-bottom: 2px;
+    }
+	
+    .one-contact-area .contact-content .contact-emergency i {
+        font-size: 30px;
+    }
+	
+    .one-contact-area .contact-content .contact-btn {
+        padding: 8px 10px 8px 10px;
+        font-size: 12px;
+        margin-top: 20px;
+        margin-left: -14px;
+    }
+	
+    .one-subscribe-area .subscribe-wrap {
+
+        padding: 70px 30px;
+    }
+	
+    .one-subscribe-area .subscribe-wrap .newsletter-form .subscribe-btn {
+        padding: 10px 10px 10px;
+        font-size: 12px;
+        font-weight: 500;
+    }
+	
+    .one-subscribe-area .subscribe-wrap .newsletter-form {
+        max-width: 100%;
+        margin: unset;
+        position: relative;
+    }
+	
+    .one-subscribe-area .subscribe-wrap .newsletter-form .form-control {
+        height: 38px;
+        width: 100%;
+    }
+	
+    .one-subscribe-area .subscribe-wrap h2 {
+		font-family: 'Fira Sans Condensed', sans-serif;
+		color: #ffffff;
+		font-size: 26px;
+		max-width: 100%;
+	}
+	
+	.one-subscribe-area .subscribe-wrap .newsletter-form .subscribe-btn {
+		margin-right: 0px;
+	}
+	
+	.inner-menu>ul.menu>li {
+		display: block;
+		margin-bottom: 30px;
+	}
+	
+	img.img.wt {
+		width: 98%;
+	}
+	
+	.patern.wpt {
+		right: unset;
+		top: -42px;
+		z-index: 0;
+		left: 60px;
+	}
+	
+	#choose-us {
+		padding-bottom: 90px;
+	}
+	
+	#choose-us {
+		margin-bottom: 0px;
+	}
+	
+}
+
+@media only screen and (max-width: 480px) and (min-width: 300px) {
+	.row.mt-5.pt-5 {
+		padding-top: 0px !important;
+		margin-top: 0px !important;
+	}
+	
+   .patern {
+		top: -46px;
+	}
+	
+	#blog h3 {
+		font-size: 22px;
+	}
+	
+	.one-subscribe-area .subscribe-wrap .newsletter-form .form-control {
+		height: 38px;
+		width: 100%;
+	}
+	
+	.one-subscribe-area .subscribe-wrap .newsletter-form .form-control {
+		height: 38px;
+		width: 100% !important;
+	}
+	
+	.about-img-area>img {
+
+		width: 100%;
+		position: relative;
+		left: 0;
+	}
+}
