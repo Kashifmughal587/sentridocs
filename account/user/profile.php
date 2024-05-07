@@ -44,8 +44,7 @@
             $lastname = $conn->real_escape_string($_POST['lastname']);
             $nmlsNumber = $conn->real_escape_string($_POST['nmlsNumber']);
             $phone = $conn->real_escape_string($_POST['phone']);
-
-            $sql = "SELECT * FROM users WHERE nmls_number = '$nmlsNumber'";
+            $sql = "SELECT * FROM users WHERE nmls_number = '$nmlsNumber' AND id !='$user_id'";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 echo '<script>alert("This NMLS number is associated with another user. Please check again for your own NMLS Number.");</script>';
@@ -81,7 +80,6 @@
     }
 ?>
     <main id="main" class="main">
-
         <div class="pagetitle">
             <h1>Profile</h1>
             <nav>
@@ -204,7 +202,7 @@
                                         <div class="row mb-3">
                                             <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
                                             <div class="col-md-8 col-lg-9">
-                                                <input name="phone" type="text" class="form-control" id="Phone" value="<?php echo $user_details['contact'];?>">
+                                                <input name="phone" type="text" class="form-control" id="Phone" placeholder="(xxx) xxx-xxxx" oninput="formatPhoneNumber(this)" value="<?php echo $user_details['contact'];?>" >
                                             </div>
                                         </div>
 

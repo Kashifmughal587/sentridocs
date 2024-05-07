@@ -31,9 +31,9 @@
     <title>Lead Generation Form</title>
     <?php 
         if(!empty($company_details['company_fav'])) {
-            echo '<link rel="shortcut icon" href="https://sentridocs.com/'.$company_details['company_fav'].'" type="image/x-icon">"';
+            echo '<link rel="shortcut icon" href="/'.$company_details['company_fav'].'" type="image/x-icon">"';
         }else{
-            echo '<link rel="shortcut icon" href="https://sentridocs.com/assets/img/favicon.ico" type="image/x-icon">"';
+            echo '<link rel="shortcut icon" href="/assets/img/favicon.ico" type="image/x-icon">"';
         }
     ?>
     <link rel="shortcut icon" href="'$com'" type="image/x-icon">
@@ -42,23 +42,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.2/css/intlTelInput.css">
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css">
-    <link rel="stylesheet" href="https://sentridocs.com/assets/css/style.css">
-    <link rel="stylesheet" href="https://sentridocs.com/assets/css/custom.css">
-    <link rel="stylesheet" href="https://sentridocs.com/assets/css/demo.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/custom.css">
+    <link rel="stylesheet" href="/assets/css/demo.css">
 </head>
 
 <body>
     <main>
         <article class="main">
             <section class="multi_step_form">
-                <form id="msform" action="https://sentridocs.com/process_form.php" method="POST">
+                <form id="msform" action="/process_form.php" method="POST">
                     <input type="hidden" name="companyID" value="<?php echo isset($company_details['id']) ? $company_details['id'] : 'sentridocs'; ?>">
+                    <input type="hidden" name="companySlug" value="<?php echo isset($company_details['company_slug']) ? $company_details['company_slug'] : 'sentridocs'; ?>">
                     <header class="intro">
                         <?php 
                             if(!empty($company_details['company_logo'])) {
-                                echo '<img src="http://localhost/sentridocs/sentridocs/'.$company_details['company_logo'].'" alt="Company Logo" style="max-width: 200px;">';
+                                echo '<img src="/'.$company_details['company_logo'].'" alt="Company Logo" style="max-width: 200px;">';
                             } else {
-                                echo '<img src="http://localhost/sentridocs/sentridocs/assets/img/logo-dark.png" alt="Company Logo" style="max-width: 200px;">';
+                                echo '<img src="/assets/img/logo-dark.png" alt="Company Logo" style="max-width: 200px;">';
                             }
                         ?>
                     </header>
@@ -72,7 +73,7 @@
                                 <input id="singleFamily" type="radio" name="property_type" value="singleFamily">
                                 <div class="ah-card-inner">
                                     <div class="ah-img-holder">
-                                        <img src="https://sentridocs.com/assets/img/img_1.png" class="card-img-top" alt="Image 1">
+                                        <img src="/assets/img/img_1.png" class="card-img-top" alt="Image 1">
                                     </div>
                                     <h5 class="ah-card-title">Single Family Home</h5>
                                 </div>
@@ -81,7 +82,7 @@
                                 <input id="Condominium" type="radio" name="property_type" value="Condominium">
                                 <div class="ah-card-inner">
                                     <div class="ah-img-holder">
-                                        <img src="https://sentridocs.com/assets/img/img_2.png" class="card-img-top" alt="Image 1">
+                                        <img src="/assets/img/img_2.png" class="card-img-top" alt="Image 1">
                                     </div>
                                     <h5 class="ah-card-title">Condominium</h5>
                                 </div>
@@ -90,7 +91,7 @@
                                 <input id="Townhome" type="radio" name="property_type" value="Townhome">
                                 <div class="ah-card-inner">
                                     <div class="ah-img-holder">
-                                        <img src="https://sentridocs.com/assets/img/img_3.png" class="card-img-top" alt="Image 1">
+                                        <img src="/assets/img/img_3.png" class="card-img-top" alt="Image 1">
                                     </div>
                                     <h5 class="ah-card-title">Townhome</h5>
                                 </div>
@@ -173,13 +174,13 @@
                         <h6>(an estimate is fine)</h6>
                         <div class="input-group mb-3 d-flex justify-content-center">
                             <div class="w-50 position-relative">
-                                <input type="number" name="value_property" class="form-control" placeholder="Estimated Home Value" id="estimatedHomeValue">
+                                <input type="text" name="value_property" class="form-control" placeholder="Estimated Home Value" id="estimatedHomeValue" oninput="formatCurrency()" maxlength="10">
                                 <span class="clear-input" id="clearEstimatedHomeValue">&times;</span>
                             </div>
                         </div>
 
                         <button type="button" class="action-button previous previous_button">Back</button>
-                        <button type="button" class="next action-button">Continue</button>
+                        <button type="button" class="next action-button estimatedHomeValueContinue">Continue</button>
                     </fieldset>
 
                     <fieldset><!-- Page 5 -->
@@ -187,13 +188,13 @@
                         <h6>(an estimate is fine)</h6>
                         <div class="input-group mb-3 d-flex justify-content-center">
                             <div class="w-50 position-relative">
-                                <input type="number" name="loan_balance" class="form-control" placeholder="Estimated Loan Balance" id="estimatedLoanValue">
+                                <input type="text" name="loan_balance" class="form-control" placeholder="Estimated Loan Balance" id="estimatedLoanValue" oninput="loanFormat()" maxlength="10">
                                 <span class="clear-input" id="clearEstimatedLoanValue">&times;</span>
                             </div>
                         </div>
 
                         <button type="button" class="action-button previous previous_button">Back</button>
-                        <button type="button" class="next action-button">Continue</button>
+                        <button type="button" class="next action-button estimatedLoanValueContinue">Continue</button>
                     </fieldset>
 
                     <fieldset><!-- Page 6 -->
@@ -494,7 +495,7 @@
                     <fieldset><!-- Page 14 -->
                         <h2>Would you like to take out additional cash</h2>
                         <h6>The average Homeowner Could Cash Out</h6>
-                        <p>$0 to <span id="rangeValue">0</span></p>
+                        <p>$0 to $<span id="rangeValue">0</span></p>
                         <div class="">
                             <input type="range" id="cash_out_amount" name="cash_out_amount" min="0" max="300000" value="0">
 
@@ -629,7 +630,7 @@
                         <h2>What is your Phone number?</h2>
                         <div class="row justify-content-center">
                             <div class="col-8 col-md-8">
-                                <input class="form-control" type="number" name="phone_number" placeholder="Enter your phone number">
+                                <input class="form-control" type="tel" id="phone_number" name="phone_number" placeholder="(xxx) xxx-xxxx" maxlength="14">
                             </div>
                         </div>
 
@@ -672,20 +673,20 @@
           var rangeValueDisplay = document.getElementById('rangeValue');
     
           rangeInput.addEventListener('input', function() {
-            rangeValueDisplay.textContent = rangeInput.value;
+            rangeValueDisplay.textContent = rangeInput.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
           });
 
           function increaseValue() {
             if (parseInt(rangeInput.value) < parseInt(rangeInput.max)) {
               rangeInput.value = parseInt(rangeInput.value) + 1;
-              rangeValueDisplay.textContent = rangeInput.value;
+              rangeValueDisplay.textContent = rangeInput.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             }
           }
 
           function decreaseValue() {
             if (parseInt(rangeInput.value) > parseInt(rangeInput.min)) {
               rangeInput.value = parseInt(rangeInput.value) - 1;
-              rangeValueDisplay.textContent = rangeInput.value;
+              rangeValueDisplay.textContent = rangeInput.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             }
           }
 
@@ -753,7 +754,60 @@
             });
         });
 
+        document.getElementById('phone_number').addEventListener('input', function (e) {
+            let input = e.target.value.replace(/\D/g, '').substring(0, 10);
+            let areaCode = input.substring(0, 3);
+            let middle = input.substring(3, 6);
+            let last = input.substring(6, 10);
 
+            if (input.length > 6) {
+                e.target.value = `(${areaCode}) ${middle}-${last}`;
+            } else if (input.length > 3) {
+                e.target.value = `(${areaCode}) ${middle}`;
+            } else if (input.length > 0) {
+                e.target.value = `(${areaCode}`;
+            } else {
+                e.target.value = '';
+            }
+        });
+
+        if (document.getElementById('estimatedHomeValue').value.slice(1).length > 0) {
+            document.getElementsByClassName('estimatedHomeValueContinue')[0].style.display = "inline-block"
+        } else {
+            document.getElementsByClassName('estimatedHomeValueContinue')[0].style.display = "none"
+        }
+
+        if (document.getElementById('estimatedLoanValue').value.slice(1).length > 0) {
+            document.getElementsByClassName('estimatedLoanValueContinue')[0].style.display = "inline-block"
+        } else {
+            document.getElementsByClassName('estimatedLoanValueContinue')[0].style.display = "none"
+        }
+
+        function formatCurrency() {
+            var input = document.getElementById('estimatedHomeValue');
+            var value = input.value.replace(/[^0-9]/g, '');
+            value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            input.value = '$' + value;
+
+            if (document.getElementById('estimatedHomeValue').value.slice(1).length > 0) {
+                document.getElementsByClassName('estimatedHomeValueContinue')[0].style.display = "inline-block"
+            } else {
+                document.getElementsByClassName('estimatedHomeValueContinue')[0].style.display = "none"
+            }
+        }
+
+        function loanFormat() {
+            var input = document.getElementById('estimatedLoanValue');
+            var value = input.value.replace(/[^0-9]/g, '');
+            value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            input.value = '$' + value;
+
+            if (document.getElementById('estimatedLoanValue').value.slice(1).length > 0) {
+                document.getElementsByClassName('estimatedLoanValueContinue')[0].style.display = "inline-block"
+            } else {
+                document.getElementsByClassName('estimatedLoanValueContinue')[0].style.display = "none"
+            }
+        }
     </script>
 </body>
 

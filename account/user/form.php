@@ -11,6 +11,10 @@
         $companyID = $company_details['id'];
         $sql = "SELECT * FROM mortgage_leads WHERE company_id = $companyID";
         $result = $conn->query($sql);
+    }else{
+        echo '<script>alert("No Record Found!");</script>';
+        echo '<script>window.location.href = "profile.php";</script>';
+        exit();
     }
     
 ?>

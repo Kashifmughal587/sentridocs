@@ -28,6 +28,14 @@
         <script src="../../assets/js/main1.js"></script>
 
         <script>
+            function formatPhoneNumber(input) {
+                let phoneNumber = input.value.replace(/\D/g, '');
+                
+                if (phoneNumber.length > 0 && phoneNumber.length <= 10) {
+                    let formattedNumber = '(' + phoneNumber.substring(0, 3) + ') ' + phoneNumber.substring(3, 6) + '-' + phoneNumber.substring(6, 10);
+                    input.value = formattedNumber;
+                }
+            }
             var path = window.location.pathname;
             var filename = path.substring(path.lastIndexOf('/') + 1);
             var navLinks = document.querySelectorAll('.sidebar-nav .nav-link');

@@ -51,19 +51,35 @@ CREATE TABLE companies (
     user_id INT NOT NULL,
     user_nmls VARCHAR(20), 
     company_name VARCHAR(100) NOT NULL,
-    company_slug VARCHAR(100) NOT NULL, -- Added company_slug field
+    company_slug VARCHAR(100) NOT NULL,
     company_email VARCHAR(100) NOT NULL,
     company_nmls VARCHAR(20),
     company_description TEXT,
     company_address VARCHAR(255),
     company_contact VARCHAR(20),
-    company_logo VARCHAR(255), -- Added company_logo field
+    company_logo VARCHAR(255),
     status ENUM('active', 'inactive') DEFAULT 'active',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-
+CREATE TABLE loan_officer (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    company_id INT NOT NULL,
+    officer_nmls VARCHAR(20),
+    officer_name VARCHAR(100) NOT NULL,
+    officer_slug VARCHAR(100) NOT NULL,
+    officer_email VARCHAR(100) NOT NULL,
+    contact VARCHAR(20),
+    profile_photo VARCHAR(255),
+    job_title VARCHAR(100),
+    about_text TEXT,
+    officer_address VARCHAR(255),
+    website VARCHAR(255),
+    calendly_link VARCHAR(255),
+    experience INT,
+    status ENUM('active', 'inactive') DEFAULT 'active'
+);
 
 CREATE TABLE license_keys (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -112,3 +128,8 @@ ADD COLUMN company_fav VARCHAR(255) AFTER company_logo;
 
 ALTER TABLE mortgage_leads
 ADD COLUMN company_id INT NOT NULL;
+
+ALTER TABLE loan_officer
+ADD COLUMN calendly_link VARCHAR(255);
+
+INSERT INTO `loan_officer` (`id`, `company_id`, `officer_nmls`, `officer_name`, `officer_slug`, `officer_email`, `contact`, `profile_photo`, `job_title`, `about_text`, `officer_address`, `website`, `experience`, `status`) VALUES (NULL, '2', '282856', 'Jeremy Willis', 'jeremy-willis', 'Jeremy@crushloans.com', '(855) 532-3767', NULL, 'Mortgage Advisor', 'Whether you’re buying, selling, refinancing, or building your dream home, you have a lot riding on your loan officer. Since market conditions and mortgage programs change frequently, you need to make sure you’re dealing with a top professional who can give you quick and accurate financial advice. As an experienced loan officer, I have the knowledge and expertise you need to explore the many financing options available.', '2455 4th Ave.\r\nSan Diego, CA 92101', 'http://www.CrushLoans.com', '4', 'active');

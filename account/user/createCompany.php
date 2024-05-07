@@ -139,7 +139,7 @@
     $result = $conn->query($sql);
     $company_details = $result->fetch_assoc();
     if($company_details > 0) {
-        echo '<script>alert("No company registered!");</script>';
+        echo '<script>alert("Company Already Registered!");</script>';
         echo '<script>window.location.href = "company.php";</script>';
         exit();
     }
@@ -198,7 +198,7 @@
                                 <div class="row mb-3">
                                     <label for="contact" class="col-sm-2 col-form-label">Contact</label>
                                     <div class="col-sm-10">
-                                        <input type="number" name="contact" class="form-control">
+                                        <input type="text" name="contact" class="form-control" placeholder="(xxx) xxx-xxxx" oninput="formatPhoneNumber(this)">
                                     </div>
                                 </div>
                                 <div class="row mb-3">

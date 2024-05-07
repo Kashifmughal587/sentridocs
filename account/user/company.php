@@ -76,7 +76,7 @@
                                         <div class="col-md-8 col-lg-9">
                                             <?php 
                                                 if(!empty($company_details['company_logo'])) {
-                                                    echo '<img src="https://sentridocs.com/'.$company_details['company_logo'].'" alt="Company Logo" style="max-width: 200px;">';
+                                                    echo '<img src="../../'.$company_details['company_logo'].'" alt="Company Logo" style="max-width: 200px;">';
                                                 } else {
                                                     echo 'No logo uploaded.';
                                                 }
@@ -89,7 +89,7 @@
                                         <div class="col-md-8 col-lg-9">
                                             <?php 
                                                 if(!empty($company_details['company_fav'])) {
-                                                    echo '<img src="https://sentridocs.com/'.$company_details['company_fav'].'" alt="Company Favicon" style="max-width: 200px;">';
+                                                    echo '<img src="../../'.$company_details['company_fav'].'" alt="Company Favicon" style="max-width: 200px;">';
                                                 } else {
                                                     echo 'No icon uploaded.';
                                                 }

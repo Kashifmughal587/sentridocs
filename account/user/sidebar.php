@@ -31,6 +31,14 @@
             </a>
         </li>
         <!-- End Form Entries Page Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link" href="officer.php">
+            <i class="bi bi-box-arrow-in-right"></i>
+            <span>Officer</span>
+            </a>
+        </li>
+        <!-- End Form Entries Page Nav -->
     </ul>
 
     <!-- <li class="nav-item">
