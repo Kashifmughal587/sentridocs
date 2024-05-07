@@ -44,6 +44,17 @@
                 } else {
                     echo '<script>alert("Sorry, there was an error uploading your file.");</script>';
                 }
+            }else {
+                // Check if an existing logo exists for this company in the database
+                $query = "SELECT company_logo FROM companies WHERE id = '$company_id'";
+                $result = $conn->query($query);
+                $row = $result->fetch_assoc();
+            
+                if ($result->num_rows > 0 && !empty($row['company_logo'])) {
+                    $logoUrl = $row['company_logo'];
+                } else {
+                    $logoUrl = '';
+                }
             }
 
             if (isset($_FILES['companyFav']) && $_FILES['companyFav']['error'] === UPLOAD_ERR_OK) {
@@ -68,6 +79,17 @@
 
                 } else {
                     echo '<script>alert("Sorry, there was an error uploading your favicon.");</script>';
+                }
+            }else {
+                // Check if an existing favicon exists for this company in the database
+                $query = "SELECT company_fav FROM companies WHERE id = '$company_id'";
+                $result = $conn->query($query);
+                $row = $result->fetch_assoc();
+            
+                if ($result->num_rows > 0 && !empty($row['company_fav'])) {
+                    $faviconUrl = $row['company_fav'];
+                } else {
+                    $faviconUrl = '';
                 }
             }
             

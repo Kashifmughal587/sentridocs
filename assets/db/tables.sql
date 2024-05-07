@@ -77,6 +77,12 @@ CREATE TABLE loan_officer (
     officer_address VARCHAR(255),
     website VARCHAR(255),
     calendly_link VARCHAR(255),
+    facebook_link VARCHAR(255),
+    instagram_link VARCHAR(255),
+    linkedin_link VARCHAR(255),
+    twitter_link VARCHAR(255),
+    youtube_link VARCHAR(255),
+    tiktok_link VARCHAR(255),
     experience INT,
     status ENUM('active', 'inactive') DEFAULT 'active'
 );
@@ -131,5 +137,13 @@ ADD COLUMN company_id INT NOT NULL;
 
 ALTER TABLE loan_officer
 ADD COLUMN calendly_link VARCHAR(255);
+
+ALTER TABLE loan_officer
+ADD COLUMN facebook_link VARCHAR(100) AFTER calendly_link,
+ADD COLUMN instagram_link VARCHAR(255) AFTER facebook_link,
+ADD COLUMN linkedin_link VARCHAR(255) AFTER instagram_link,
+ADD COLUMN twitter_link VARCHAR(255) AFTER linkedin_link,
+ADD COLUMN youtube_link VARCHAR(255) AFTER twitter_link,
+ADD COLUMN tiktok_link VARCHAR(255) AFTER tiktok_link;
 
 INSERT INTO `loan_officer` (`id`, `company_id`, `officer_nmls`, `officer_name`, `officer_slug`, `officer_email`, `contact`, `profile_photo`, `job_title`, `about_text`, `officer_address`, `website`, `experience`, `status`) VALUES (NULL, '2', '282856', 'Jeremy Willis', 'jeremy-willis', 'Jeremy@crushloans.com', '(855) 532-3767', NULL, 'Mortgage Advisor', 'Whether you’re buying, selling, refinancing, or building your dream home, you have a lot riding on your loan officer. Since market conditions and mortgage programs change frequently, you need to make sure you’re dealing with a top professional who can give you quick and accurate financial advice. As an experienced loan officer, I have the knowledge and expertise you need to explore the many financing options available.', '2455 4th Ave.\r\nSan Diego, CA 92101', 'http://www.CrushLoans.com', '4', 'active');

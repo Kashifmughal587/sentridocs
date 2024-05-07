@@ -76,6 +76,16 @@
                 } else {
                     echo '<script>alert("Sorry, there was an error uploading your file.");</script>';
                 }
+            }else {
+                $query = "SELECT profile_photo FROM loan_officer WHERE id = '$officer_id'";
+                $result = $conn->query($query);
+                $row = $result->fetch_assoc();
+            
+                if ($result->num_rows > 0 && !empty($row['profile_photo'])) {
+                    $profileUrl = $row['profile_photo'];
+                } else {
+                    $profileUrl = '';
+                }
             }
             
             if(isset($_POST['action']) && $_POST['action'] == 'update'){
@@ -161,13 +171,13 @@
                                 </div>
                                 
                                 <div class="row mb-3">
-                                    <label for="officerNMLS" class="col-sm-2 col-form-label">officer NMLS</label>
+                                    <label for="officerNMLS" class="col-sm-2 col-form-label">Officer NMLS</label>
                                     <div class="col-sm-10">
                                         <input type="number" name="officerNMLS" id="officerNMLS" class="form-control">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <label for="officerName" class="col-sm-2 col-form-label">officer Name</label>
+                                    <label for="officerName" class="col-sm-2 col-form-label">Officer Name</label>
                                     <div class="col-sm-10">
                                         <input type="text" name="officerName" id="officerName" class="form-control">
                                     </div>
