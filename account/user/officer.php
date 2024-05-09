@@ -57,6 +57,10 @@
                                 <li class="nav-item">
                                     <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Details</button>
                                 </li>
+
+                                <li class="nav-item">
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#social-link-edit">Edit Social Links</button>
+                                </li>
                             </ul>
                             <div class="tab-content pt-2">
 
@@ -145,6 +149,73 @@
                                         <div class="col-lg-9 col-md-8"><?php echo 'https://sentridocs.com/'.$company_details['company_slug'],'/loan-officer.php'?></div>
                                     </div>
 
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-4 label">Social URLs</div>
+                                        <div class="col-lg-9 col-md-8">
+                                                <!-- Social Media Links -->
+                                                <div class="row mb-3">
+                                                    <?php if (!empty($officer_details['facebook_link'])) : ?>
+                                                        <div class="col-md-1 col-lg-1">
+                                                            <a href="<?php if (strpos($officer_details['facebook_link'], 'http://') !== 0 && strpos($officer_details['facebook_link'], 'https://') !== 0) {
+                                                                    $officer_details['facebook_link'] = 'https://' . $officer_details['facebook_link']; 
+                                                                }echo $officer_details['facebook_link']; ?>" target="_blank" class="social-icon">
+                                                                <i class="bi bi-facebook"></i>
+                                                            </a>
+                                                        </div>
+                                                    <?php endif; 
+                                                    
+                                                    if (!empty($officer_details['instagram_link'])) : ?>
+                                                        <div class="col-md-1 col-lg-1">
+                                                            <a href="<?php if (strpos($officer_details['instagram_link'], 'http://') !== 0 && strpos($officer_details['instagram_link'], 'https://') !== 0) {
+                                                                    $officer_details['instagram_link'] = 'https://' . $officer_details['instagram_link']; 
+                                                                }echo $officer_details['instagram_link']; ?>" target="_blank" class="social-icon">
+                                                                <i class="bi bi-instagram"></i>
+                                                            </a>
+                                                        </div>
+                                                    <?php endif;
+                                                    
+                                                    if (!empty($officer_details['linkedin_link'])) : ?>
+                                                        <div class="col-md-1 col-lg-1">
+                                                            <a href="<?php if (strpos($officer_details['linkedin_link'], 'http://') !== 0 && strpos($officer_details['linkedin_link'], 'https://') !== 0) {
+                                                                    $officer_details['linkedin_link'] = 'https://' . $officer_details['linkedin_link']; 
+                                                                }echo $officer_details['linkedin_link']; ?>" target="_blank" class="social-icon">
+                                                                <i class="bi bi-linkedin"></i>
+                                                            </a>
+                                                        </div>
+                                                    <?php endif;
+
+                                                    if (!empty($officer_details['twitter_link'])) : ?>
+                                                        <div class="col-md-1 col-lg-1">
+                                                            <a href="<?php if (strpos($officer_details['twitter_link'], 'http://') !== 0 && strpos($officer_details['twitter_link'], 'https://') !== 0) {
+                                                                    $officer_details['twitter_link'] = 'https://' . $officer_details['twitter_link']; 
+                                                                }echo $officer_details['twitter_link']; ?>" target="_blank" class="social-icon">
+                                                                <i class="fab fa-twitter"></i>
+                                                            </a>
+                                                        </div>
+                                                    <?php endif;
+
+                                                    if (!empty($officer_details['youtube_link'])) : ?>
+                                                        <div class="col-md-1 col-lg-1">
+                                                            <a href="<?php if (strpos($officer_details['youtube_link'], 'http://') !== 0 && strpos($officer_details['youtube_link'], 'https://') !== 0) {
+                                                                    $officer_details['youtube_link'] = 'https://' . $officer_details['youtube_link']; 
+                                                                }echo $officer_details['youtube_link']; ?>" target="_blank" class="social-icon">
+                                                                <i class="bi bi-youtube"></i>
+                                                            </a>
+                                                        </div>
+                                                    <?php endif;
+
+                                                    if (!empty($officer_details['tiktok_link'])) : ?>
+                                                        <div class="col-md-1 col-lg-1">
+                                                            <a href="<?php if (strpos($officer_details['tiktok_link'], 'http://') !== 0 && strpos($officer_details['tiktok_link'], 'https://') !== 0) {
+                                                                    $officer_details['tiktok_link'] = 'https://' . $officer_details['tiktok_link']; 
+                                                                }echo $officer_details['tiktok_link']; ?>" target="_blank" class="social-icon">
+                                                                <i class="bi bi-tiktok"></i>
+                                                            </a>
+                                                        </div>
+                                                    <?php endif; ?>
+                                                </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
@@ -236,6 +307,62 @@
                                             <button type="submit" class="btn btn-primary">Save Changes</button>
                                         </div>
                                     </form><!-- End Profile Edit Form -->
+                                </div>
+
+                                <div class="tab-pane fade social-link-edit pt-3" id="social-link-edit">
+
+                                    <!-- End Social Media Links Edit Form -->
+                                    <form action="createOfficer.php" method="POST" action="socialLinks">
+                                        <input type="hidden" name="action" value="socialLinks">
+                                        <input type="hidden" name="id" id="id" value="<?php echo $officer_details['id'];?>">
+                                        <input type="hidden" name="company_id" id="company_id" value="<?php echo $company_details['id'];?>">
+
+                                        <div class="row mb-3">
+                                            <label for="facebook_link" class="col-md-4 col-lg-3 col-form-label">Facebook URL</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="facebook_link" type="text" class="form-control" id="facebook_link" value="<?php echo $officer_details['facebook_link'];?>">
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="instagram_link" class="col-md-4 col-lg-3 col-form-label">Instagram URL</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="instagram_link" type="text" class="form-control" id="instagram_link" value="<?php echo $officer_details['instagram_link'];?>">
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="linkedin_link" class="col-md-4 col-lg-3 col-form-label">Linkedin URL</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="linkedin_link" type="text" class="form-control" id="linkedin_link" value="<?php echo $officer_details['linkedin_link'];?>">
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="twitter_link" class="col-md-4 col-lg-3 col-form-label">Twitter URL</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="twitter_link" type="text" class="form-control" id="twitter_link" value="<?php echo $officer_details['twitter_link'];?>">
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="youtube_link" class="col-md-4 col-lg-3 col-form-label">YouTube URL</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="youtube_link" type="text" class="form-control" id="youtube_link" value="<?php echo $officer_details['youtube_link'];?>">
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <label for="tiktok_link" class="col-md-4 col-lg-3 col-form-label">TikTok URL</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="tiktok_link" type="text" class="form-control" id="tiktok_link" value="<?php echo $officer_details['tiktok_link'];?>">
+                                            </div>
+                                        </div>
+
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                                        </div>
+                                    </form><!-- End Social Media Links Edit Form -->
                                 </div>
                             </div><!-- End Bordered Tabs -->
                         </div>

@@ -140,17 +140,14 @@
 
             insertFormData($formData);
             // generatePDF($formData);
-
-            // Success message and redirection...
+            
             echo '<script>';
             echo 'alert("Form Submitted Successfully");';
             echo 'window.location.href = "https://sentridocs.com/' . $companySlug . '/loan-officer.php";';
             echo '</script>';
         }
     }catch (Exception $e) {
-        // Handle exceptions, such as logging the error
         error_log("Error: " . $e->getMessage());
-        // Display an error message to the user
         echo '<script>';
         echo 'alert("An error occurred while processing your request. Please try again later.");';
         echo 'window.location.href = "https://sentridocs.com/' . $companySlug . '/loan-officer.php";';

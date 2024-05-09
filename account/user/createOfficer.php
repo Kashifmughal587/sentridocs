@@ -25,18 +25,53 @@
         $sql = "SELECT * FROM loan_officer WHERE company_id = '$company_id'";
         $result = $conn->query($sql);
         $officer_details = $result->fetch_assoc();
-        if($officer_details > 0 && isset($_POST['action']) && $_POST['action'] != 'update') {
+        if($officer_details > 0 && !isset($_POST['action'])) {
+            echo '<script>alert("'. $_POST['action'] .'");</script>';
             echo '<script>alert("Officer Already Registered!");</script>';
-            echo '<script>window.location.href = "company.php";</script>';
+            echo '<script>window.location.href = "officer.php";</script>';
             exit();
         }
     }
-    // Function to generate a slug
     function generateSlug($text) {
         $text = strtolower(trim($text));
         $text = preg_replace('/[^a-z0-9-]/', '-', $text);
         $text = preg_replace('/-+/', "-", $text);
         return $text;
+    }
+
+    if($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['action']) && $_POST['action'] == 'socialLinks')){
+        if(isset($_POST['id'], $_POST['company_id'])) {
+            $id = filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT);
+            $facebookLink = filter_var($_POST['facebook_link'], FILTER_SANITIZE_URL);
+            $instagramLink = filter_var($_POST['instagram_link'], FILTER_SANITIZE_URL);
+            $linkedinLink = filter_var($_POST['linkedin_link'], FILTER_SANITIZE_URL);
+            $twitterLink = filter_var($_POST['twitter_link'], FILTER_SANITIZE_URL);
+            $youtubeLink = filter_var($_POST['youtube_link'], FILTER_SANITIZE_URL);
+            $tiktokLink = filter_var($_POST['tiktok_link'], FILTER_SANITIZE_URL);
+
+            $updateQuery = "UPDATE loan_officer SET facebook_link = '$facebookLink', instagram_link = '$instagramLink', linkedin_link = '$linkedinLink', twitter_link = '$twitterLink',  youtube_link = '$youtubeLink', tiktok_link = '$tiktokLink' WHERE id = '$id'";
+                    
+            if ($conn->query($updateQuery) === TRUE) {
+                $_SESSION['last_activity'] = time();
+                // Activity Log
+                $activity_type = 'OFFICER';
+                $activity_description = 'officer social links with ID '.$officerName.' updated successfully.';
+                $ip_address = $_SERVER['REMOTE_ADDR'];
+                $device_info = $_SERVER['HTTP_USER_AGENT'];
+                log_activity($user_id, $activity_type, $activity_description, $ip_address, $device_info);
+                // Activity Log
+                echo '<script>alert("Links updated successfully!");</script>';
+                echo '<script>window.location.href = "officer.php";</script>';
+            } else {
+                echo '<script>alert("Error updating officer links: ' . $conn->error . '");</script>';
+                echo '<script>window.location.href = "officer.php";</script>';
+                exit();
+            }
+        } else {
+            echo '<script>alert("Error updating officer links: ' . $conn->error . '");</script>';
+            echo '<script>window.location.href = "officer.php";</script>';
+            exit();
+        }
     }
 
     if($_SERVER['REQUEST_METHOD'] === 'POST') {

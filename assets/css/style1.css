@@ -1048,6 +1048,33 @@ h6 {
   max-width: 120px;
 }
 
+.profile .social-link-edit label {
+  font-weight: 600;
+  color: rgba(1, 41, 112, 0.6);
+}
+
+.profile .social-link-edit img {
+  max-width: 120px;
+}
+
+
+/* Style for circular background */
+.social-icon {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px; /* Center icon vertically */
+  text-align: center;
+  border-radius: 50%; /* Make it circular */
+  background-color: #f5f5f5; /* Very light gray color */
+  margin-right: 10px; /* Add some spacing between icons */
+}
+
+/* Additional styles for Font Awesome icons (optional) */
+.social-icon i {
+  font-size: 18px;
+}
+
 /*--------------------------------------------------------------
 # F.A.Q Page
 --------------------------------------------------------------*/

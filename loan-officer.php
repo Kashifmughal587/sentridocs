@@ -11,7 +11,6 @@
         $result = $conn->query($query);
 
         if ($result->num_rows > 0) {
-            // Fetch company details
             $company_details = $result->fetch_assoc();
             $company_id = $company_details['id'];
             $sql = "SELECT * FROM loan_officer WHERE company_id = '$company_id'";
@@ -62,12 +61,30 @@
     <link rel="shortcut icon" href="'$com'" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.2/css/intlTelInput.css">
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css">
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/custom.css">
     <link rel="stylesheet" href="/assets/css/demo.css">
+
+    <style>
+        .social-icon {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border-radius: 50%;
+            background-color: #f5f5f5;
+            margin-right: 10px;
+        }
+
+            .social-icon i {
+            font-size: 18px;
+        }
+    </style>
 </head>
 
 <body>
@@ -123,7 +140,7 @@
                                 <div class="col-md-6">
                                     <div class="addresList">
                                         <div class="addTxt" style="display: flex; align-items: center;">
-                                            <i class="fa fa-phone" aria-hidden="true" style="margin-right: 10px; font-size: 24px;"></i>
+                                            <i class="bi bi-telephone" aria-hidden="true" style="margin-right: 10px; font-size: 24px;"></i>
                                             <h2 style="margin-right: 5px;">Call or Text</h2>
                                         </div>
                                         <h3 class="addSeprate" id="callOrText">
@@ -144,16 +161,13 @@
                                 <div class="col-md-6">
                                     <div class="addresList">
                                         <div class="addTxt" style="display: flex; align-items: center;">
-                                            <i class="fa fa-calendar" aria-hidden="true" style="margin-right: 10px; font-size: 24px;"></i>
+                                            <i class="bi bi-calendar-check" aria-hidden="true" style="margin-right: 10px; font-size: 24px;"></i>
                                             <h2 style="margin-right: 5px;">Schedule a Time</h2>
                                         </div>
                                         <?php
-                                            // Assuming $officer_details['calendly_link'] contains the dynamic URL
                                             $calendly_link = $officer_details['calendly_link'];
 
-                                            // Check if the URL starts with http:// or https://
                                             if (strpos($calendly_link, 'http://') !== 0 && strpos($calendly_link, 'https://') !== 0) {
-                                                // If it doesn't, assume it's a relative URL and append it to the base URL
                                                 $calendly_link = 'https://' . $calendly_link;
                                             }
                                             ?>
@@ -164,7 +178,7 @@
                                 <div class="col-md-6">
                                     <div class="addresList">
                                         <div class="addTxt" style="display: flex; align-items: center;">
-                                            <i class="fa fa-internet-explorer" aria-hidden="true" style="margin-right: 10px; font-size: 24px;"></i>
+                                            <i class="bi bi-globe" aria-hidden="true" style="margin-right: 10px; font-size: 24px;"></i>
                                             <h2 style="margin-right: 5px;">My Website</h2>
                                         </div>
                                         <h3><a data-href="section1.agentDetail.myWebsite.link" data-text="section1.agentDetail.myWebsite.text" target="_blank" href="<?php echo $officer_details['website'] ?>"><?php echo $officer_details['website'] ?></a></h3>
@@ -173,7 +187,7 @@
                                 <div class="col-md-6">
                                     <div class="addresList">
                                         <div class="addTxt" style="display: flex; align-items: center;">
-                                            <i class="fa fa-map-marker" aria-hidden="true" style="margin-right: 10px; font-size: 24px;"></i>
+                                            <i class="bi bi-geo" aria-hidden="true" style="margin-right: 10px; font-size: 24px;"></i>
                                             <h2 style="margin-right: 5px;">Address</h2>
                                         </div>
                                         <h3 data-html="section1.agentDetail.address.text"><?php echo $officer_details['officer_address'] ?></h3>
@@ -188,6 +202,114 @@
                     </div>
                 </div>
                 <footer class="credit text-start">
+                    <hr>
+                    <div id="accessibilityTabs">
+                        <div class="accessibilityTab" style="display: inline;">
+                            <a href="#">Accessibility</a>
+                        </div>
+                        <div class="accessibilityTab" style="display: inline; padding: 0 5px;">
+                            <span>|</span>
+                        </div>
+                        <div class="accessibilityTab" style="display: inline;">
+                            <a href="#">Licensing</a>
+                        </div>
+                        <div class="accessibilityTab" style="display: inline; padding: 0 5px;">
+                            <span>|</span>
+                        </div>
+                        <div class="accessibilityTab" style="display: inline;">
+                            <a href="#">Notice to Vendors</a>
+                        </div>
+                        <div class="accessibilityTab" style="display: inline; padding: 0 5px;">
+                            <span>|</span>
+                        </div>
+                        <div class="accessibilityTab" style="display: inline;">
+                            <a href="http://crush-demo-lo.leadpops.com/privacy-policy/">Privacy Policies</a>
+                        </div>
+                        <div class="accessibilityTab" style="display: inline; padding: 0 5px;">
+                            <span>|</span>
+                        </div>
+                        <div class="accessibilityTab" style="display: inline;">
+                            <a href="#">SMS Terms</a>
+                        </div>
+                        <div class="accessibilityTab" style="display: inline; padding: 0 5px;">
+                            <span>|</span>
+                        </div>
+                        <div class="accessibilityTab" style="display: inline;">
+                            <a href="#">Terms of Use</a>
+                        </div>
+                        <div class="accessibilityTab" style="display: inline; padding: 0 5px;">
+                            <span>|</span>
+                        </div>
+                        <div class="accessibilityTab" style="display: inline;">
+                            <a href="#">NMLS Consumer Access</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-9 col-md-8">
+                            <!-- Social Media Links -->
+                            <div class="row mb-3">
+                                <?php if (!empty($officer_details['facebook_link'])) : ?>
+                                    <div class="col-md-1 col-lg-1">
+                                        <a href="<?php if (strpos($officer_details['facebook_link'], 'http://') !== 0 && strpos($officer_details['facebook_link'], 'https://') !== 0) {
+                                                $officer_details['facebook_link'] = 'https://' . $officer_details['facebook_link']; 
+                                            }echo $officer_details['facebook_link']; ?>" target="_blank" class="social-icon">
+                                            <i class="bi bi-facebook"></i>
+                                        </a>
+                                    </div>
+                                <?php endif; 
+                                
+                                if (!empty($officer_details['instagram_link'])) : ?>
+                                    <div class="col-md-1 col-lg-1">
+                                        <a href="<?php if (strpos($officer_details['instagram_link'], 'http://') !== 0 && strpos($officer_details['instagram_link'], 'https://') !== 0) {
+                                                $officer_details['instagram_link'] = 'https://' . $officer_details['instagram_link']; 
+                                            }echo $officer_details['instagram_link']; ?>" target="_blank" class="social-icon">
+                                            <i class="bi bi-instagram"></i>
+                                        </a>
+                                    </div>
+                                <?php endif;
+                                
+                                if (!empty($officer_details['linkedin_link'])) : ?>
+                                    <div class="col-md-1 col-lg-1">
+                                        <a href="<?php if (strpos($officer_details['linkedin_link'], 'http://') !== 0 && strpos($officer_details['linkedin_link'], 'https://') !== 0) {
+                                                $officer_details['linkedin_link'] = 'https://' . $officer_details['linkedin_link']; 
+                                            }echo $officer_details['linkedin_link']; ?>" target="_blank" class="social-icon">
+                                            <i class="bi bi-linkedin"></i>
+                                        </a>
+                                    </div>
+                                <?php endif;
+
+                                if (!empty($officer_details['twitter_link'])) : ?>
+                                    <div class="col-md-1 col-lg-1">
+                                        <a href="<?php if (strpos($officer_details['twitter_link'], 'http://') !== 0 && strpos($officer_details['twitter_link'], 'https://') !== 0) {
+                                                $officer_details['twitter_link'] = 'https://' . $officer_details['twitter_link']; 
+                                            }echo $officer_details['twitter_link']; ?>" target="_blank" class="social-icon">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                    </div>
+                                <?php endif;
+
+                                if (!empty($officer_details['youtube_link'])) : ?>
+                                    <div class="col-md-1 col-lg-1">
+                                        <a href="<?php if (strpos($officer_details['youtube_link'], 'http://') !== 0 && strpos($officer_details['youtube_link'], 'https://') !== 0) {
+                                                $officer_details['youtube_link'] = 'https://' . $officer_details['youtube_link']; 
+                                            }echo $officer_details['youtube_link']; ?>" target="_blank" class="social-icon">
+                                            <i class="bi bi-youtube"></i>
+                                        </a>
+                                    </div>
+                                <?php endif;
+
+                                if (!empty($officer_details['tiktok_link'])) : ?>
+                                    <div class="col-md-1 col-lg-1">
+                                        <a href="<?php if (strpos($officer_details['tiktok_link'], 'http://') !== 0 && strpos($officer_details['tiktok_link'], 'https://') !== 0) {
+                                                $officer_details['tiktok_link'] = 'https://' . $officer_details['tiktok_link']; 
+                                            }echo $officer_details['tiktok_link']; ?>" target="_blank" class="social-icon">
+                                            <i class="bi bi-tiktok"></i>
+                                        </a>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
                     <hr>
                     <?php 
                         if(!empty($company_details['company_logo'])) {

@@ -25,9 +25,11 @@
                 $user_details = $result->fetch_assoc();
             }else{
                 echo '<script>alert("User not found.")</script>';
+                echo '<script>window.location.href = "users.php";</script>';
             }
         } else {
             echo '<script>alert("Company not found.")</script>';
+            echo '<script>window.location.href = "companies.php";</script>';
         }
     }else{
         echo '<script>window.location.href = "companies.php";</script>';
@@ -102,7 +104,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">Company Refinance URL</th>
-                                    <td><?php echo '../../'.$company_details['company_slug'],'/refinance.php'?></td>
+                                    <td><?php echo 'https://sentridocs.com/'.$company_details['company_slug'],'/refinance.php'?></td>
                                 </tr>
                             </table>
                             <h5 class="card-title">
@@ -120,6 +122,16 @@
                                 <tr>
                                     <th scope="row">User Email</th>
                                     <td><?php echo $user_details["email"]; ?></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">User Password</th>
+                                    <td>
+                                        <form action="update_status.php" method="GET">
+                                            <input type="hidden" name="id" value="<?php echo $user_details['id']; ?>">
+                                            <input type="hidden" name="status" value="resetPassword">
+                                            <button type="submit" class="btn btn-primary">Reset Password</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             </table>
                         </div>
