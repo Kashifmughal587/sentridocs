@@ -1,17 +1,13 @@
 <?php
-    // Include your database connection file here
     include 'assets/db/db_connection.php';
 
-    // Get the company_id from the URL
     if(isset($_GET['company_id'])){
         $company_slug = $_GET['company_id'];
 
-        // Query to fetch company details based on company_slug
         $query = "SELECT * FROM companies WHERE company_slug = '$company_slug'";
         $result = $conn->query($query);
 
         if ($result->num_rows > 0) {
-            // Fetch company details
             $company_details = $result->fetch_assoc();
         } else {
             echo '<script>alert("Company not found!");</script>';

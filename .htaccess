@@ -5,5 +5,8 @@ RewriteRule ^(.*)$ http://%1%{REQUEST_URI} [R=301,QSA,NC,L]
 # Rewrite rule to handle /company_id/refinance.php
 RewriteRule ^([^/]+)/refinance\.php$ refinance.php?company_id=$1 [L]
 
+# Rewrite rule to handle /company_id/va-loan-leads.php
+RewriteRule ^([^/]+)/va-loan-leads\.php$ va-loan-leads.php?company_id=$1 [L]
+
 # Rewrite rule to handle /company_id/loan-officer.php
 RewriteRule ^([^/]+)/loan-officer\.php$ loan-officer.php?company_id=$1 [L]
